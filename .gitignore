@@ -1,0 +1,26 @@
+/target/
+.project
+.settings
+.tern-project
+.classpath
+/node_modules/
+/bin/
+
+# estos son los generados por angular build durante el desarrollo
+/src/main/webapp/*.js
+/src/main/webapp/*.map
+/src/main/webapp/*.woff
+/src/main/webapp/*.woff2
+/src/main/webapp/*.eot
+/src/main/webapp/*.svg
+/src/main/webapp/*.ttf
+/src/main/webapp/*.ico
+/src/main/webapp/*.html
+/src/main/webapp/*.png
+/src/main/webapp/assets
+
+/node_installation/
+
+# Intellij
+/.idea
+*.iml
