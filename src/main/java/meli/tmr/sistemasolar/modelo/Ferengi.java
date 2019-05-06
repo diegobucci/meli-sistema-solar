@@ -17,4 +17,5 @@ public class Ferengi extends Civilizacion {
     public Float getPosicionEnY(Integer diaNumero) {
         return null;
     }
+
 }
