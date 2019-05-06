@@ -9,12 +9,23 @@ import java.util.List;
 public class SistemaSolar {
 
     private List<Civilizacion> planetas;
+    private Posicion posicionDelSol;
 
     @Inject
     private ClimaController climaController;
 
     public SistemaSolar(){
         this.setPlanetas(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        this.calcularPosicionDelSol();
+    }
+
+    private void calcularPosicionDelSol(){
+        Float posicionMaxima = new Float(0);
+        for(Civilizacion p : planetas) {
+            if(p.getDistanciaALaTierraEnKm() > posicionMaxima) posicionMaxima = p.getDistanciaALaTierraEnKm();
+        }
+        Float xAndy = posicionMaxima / 2;
+        this.setPosicionDelSol(new Posicion(xAndy, xAndy));
     }
 
     public List<Civilizacion> getPlanetas() {
@@ -26,7 +37,15 @@ public class SistemaSolar {
     }
 
     public Reporte obtenerReporte(Integer cantidadDeAnios) throws Exception {
-        return climaController.obtenerReporte(this.getPlanetas(), cantidadDeAnios);
+        if(cantidadDeAnios < 1 || cantidadDeAnios > 10) throw new Exception("Los años deben variar entre 1 y 10");
+        return climaController.obtenerReporte(this.getPlanetas(), this.getPosicionDelSol(), cantidadDeAnios);
     }
 
+    public Posicion getPosicionDelSol() {
+        return posicionDelSol;
+    }
+
+    public void setPosicionDelSol(Posicion posicionDelSol) {
+        this.posicionDelSol = posicionDelSol;
+    }
 }

@@ -15,7 +15,7 @@ public class ClimaController {
     public static final String OPTIMO = "optimo";
     private static final Integer DIAS_POR_ANIO = 365;
 
-    public Reporte obtenerReporte(List<Civilizacion> planetas, Integer cantidadDeAnios) throws Exception {
+    public Reporte obtenerReporte(List<Civilizacion> planetas, Posicion posicionDelSol, Integer cantidadDeAnios) throws Exception {
         Reporte reporte = new Reporte();
         for (int diaNro = 0; diaNro < cantidadDeAnios * DIAS_POR_ANIO; diaNro++) {
             List<Posicion> posiciones = getPosiciones(planetas, diaNro);
@@ -41,7 +41,7 @@ public class ClimaController {
     }
 
     public Double obtenerPerimetro(List<Posicion> posiciones) throws Exception {
-        if(posiciones == null || posiciones.size() != 3) throw new Exception("Se necesitan tres posiciones para predecir el clima");
+        if(posiciones == null || posiciones.size() != 3) throw new Exception("Se necesitan tres posiciones para obtener el perimetro");
         return distanciaEntre(posiciones.get(0), posiciones.get(1))
                 + distanciaEntre(posiciones.get(1), posiciones.get(2))
                 + distanciaEntre(posiciones.get(2), posiciones.get(0));
