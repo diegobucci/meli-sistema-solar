@@ -9,7 +9,7 @@ import java.util.List;
 public class SistemaSolar {
 
     private List<Civilizacion> planetas;
-    private Posicion posicionDelSol;
+    private Posicion posicionDelSol; // siempre está en el medio
 
     @Inject
     private ClimaController climaController;
@@ -24,8 +24,7 @@ public class SistemaSolar {
         for(Civilizacion p : planetas) {
             if(p.getDistanciaALaTierraEnKm() > posicionMaxima) posicionMaxima = p.getDistanciaALaTierraEnKm();
         }
-        Float xAndy = posicionMaxima / 2;
-        this.setPosicionDelSol(new Posicion(xAndy, xAndy));
+        this.setPosicionDelSol(new Posicion(posicionMaxima, posicionMaxima));
     }
 
     public List<Civilizacion> getPlanetas() {
