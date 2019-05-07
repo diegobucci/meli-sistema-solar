@@ -1,9 +1,7 @@
 package meli.tmr.sistemasolar.modelo;
 
-import meli.tmr.sistemasolar.controller.ClimaController;
-import meli.tmr.sistemasolar.exceptions.AniosException;
+import meli.tmr.sistemasolar.exceptions.SistemaSolarException;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +11,8 @@ public class SistemaSolar {
     private List<Planeta> planetas;
     private Posicion posicionDelSol;
 
-    public SistemaSolar(List<Planeta> planetas){
+    public SistemaSolar(List<Planeta> planetas) throws SistemaSolarException {
+        if(planetas == null || planetas.size() != 3) throw new SistemaSolarException("Se esperan tres planetas");
         this.setPlanetas(planetas);
         this.calcularPosicionDelSol();
     }

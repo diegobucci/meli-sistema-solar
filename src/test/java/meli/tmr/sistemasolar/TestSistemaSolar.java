@@ -1,6 +1,7 @@
 package meli.tmr.sistemasolar;
 
 import meli.tmr.sistemasolar.controller.ClimaController;
+import meli.tmr.sistemasolar.exceptions.SistemaSolarException;
 import meli.tmr.sistemasolar.modelo.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,12 +43,21 @@ public class TestSistemaSolar {
     }
 
     @Test
-    public void testObtenerReporteExceptionAniosSuperiorADiez() {
+    public void testObtenerReporteExceptionAniosSuperiorADiez() throws SistemaSolarException {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         try {
             climaController.obtenerReporte(sistemaSolar,99);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), is("Los años deben variar entre 1 y 10"));
+        }
+    }
+
+    @Test
+    public void testCreacionSistemaSolarException() {
+        try {
+            new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi()));
+        } catch (SistemaSolarException e) {
+            Assert.assertThat(e.getMessage(), is("Se esperan tres planetas"));
         }
     }
 }
