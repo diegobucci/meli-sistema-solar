@@ -15,7 +15,7 @@ public class SistemaSolar {
         if(planetas == null || planetas.size() != 3) throw new SistemaSolarException("Se esperan tres planetas");
         this.setPlanetas(planetas);
         this.calcularPosicionDelSol();
-        this.planetas.forEach(p -> p.setPosicionDelSol(this.getPosicionDelSol()));
+        this.planetas.forEach(p -> p.setPosicionDelSol(this.getPosicionDelSol())); // necesitan esta coordenada ya que será el eje central
     }
 
     private void calcularPosicionDelSol(){
