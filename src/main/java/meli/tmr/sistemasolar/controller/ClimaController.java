@@ -6,6 +6,7 @@ import meli.tmr.sistemasolar.modelo.Reporte;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -13,13 +14,14 @@ public class ClimaController {
     public static final String LLUVIA = "lluvia";
     public static final String SEQUIA = "sequia";
     public static final String OPTIMO = "optimo";
+    public static final String INDETERMINADO = "indeterminado"; // forman un triangulo en el cual el sol no esta dentro
     private static final Integer DIAS_POR_ANIO = 365;
 
     public Reporte obtenerReporte(List<Planeta> planetas, Posicion posicionDelSol, Integer cantidadDeAnios) throws Exception {
         Reporte reporte = new Reporte();
         for (int diaNro = 0; diaNro < cantidadDeAnios * DIAS_POR_ANIO; diaNro++) {
             List<Posicion> posiciones = getPosiciones(planetas, diaNro);
-            String clima = obtenerClima(posiciones);
+            String clima = obtenerClima(posiciones, posicionDelSol);
             if(clima == LLUVIA){
                 reporte.setCantidadDeDiasDeLluvias(reporte.getCantidadDeDiasDeLluvias() + 1);
                 Double perimetro = obtenerPerimetro(posiciones);
@@ -35,9 +37,18 @@ public class ClimaController {
         return reporte;
     }
 
-    public String obtenerClima(List<Posicion> posiciones) throws Exception {
-        if(posiciones == null || posiciones.size() != 3) throw new Exception("Se necesitan tres posiciones para predecir el clima");
-        return "";
+    public String obtenerClima(List<Posicion> posicionesPlanetas, Posicion posicionSol) throws Exception {
+        if(posicionesPlanetas == null || posicionesPlanetas.size() != 3) throw new Exception("Se necesitan tres posiciones para predecir el clima");
+        String clima = INDETERMINADO;
+        double area = obtenerArea(posicionesPlanetas);
+        if(area > 0 && isInside(area, posicionesPlanetas, posicionSol)) clima = LLUVIA;
+        else if (area == 0) { // forman una linea
+            // si el area es 0 es porque los planetas forman una linea
+            // agarro dos planetas de la linea y chequeo si forman una linea con el sol
+            if(estanAlineados(posicionesPlanetas.get(0), posicionesPlanetas.get(1), posicionSol)) clima = SEQUIA;
+            else clima = OPTIMO;
+        }
+        return clima;
     }
 
     public Double obtenerPerimetro(List<Posicion> posiciones) throws Exception {
@@ -57,5 +68,45 @@ public class ClimaController {
         List<Posicion> posiciones = new ArrayList<>();
         planetas.forEach(p -> posiciones.add(p.getPosicion(diaNumero)));
         return posiciones;
+    }
+
+    private Double obtenerArea(List<Posicion> posiciones) throws Exception {
+        if(posiciones == null || posiciones.size() != 3) throw new Exception("Se necesitan tres posiciones para obtener el perimetro");
+        double x1 = posiciones.get(0).getX();
+        double x2 = posiciones.get(1).getX();
+        double x3 = posiciones.get(2).getX();
+        double y1 = posiciones.get(0).getY();
+        double y2 = posiciones.get(1).getY();
+        double y3 = posiciones.get(2).getY();
+        return Math.abs((x1*(y2-y3) + x2*(y3-y1)+ x3*(y1-y2))/2.0);
+    }
+
+    private boolean isInside(double areaFormadaPorPlanetas, List<Posicion> posicionesPlanetas, Posicion posicionSol){
+        try {
+            /* Calculo area formada por los primeros dos planetas y el sol */
+            double A1 = this.obtenerArea(Arrays.asList(posicionesPlanetas.get(0), posicionesPlanetas.get(1), posicionSol));
+
+            /* Calculo area formada por otros dos planetas y el sol */
+            double A2 = this.obtenerArea(Arrays.asList(posicionesPlanetas.get(1), posicionesPlanetas.get(2), posicionSol));
+
+            /* Calculo area formada por otros dos planetas y el sol */
+            double A3 = this.obtenerArea(Arrays.asList(posicionesPlanetas.get(2), posicionesPlanetas.get(0), posicionSol));
+
+            /* Check if sum of A1, A2 and A3 is same as A */
+            return (areaFormadaPorPlanetas == A1 + A2 + A3);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean estanAlineados(Posicion posicion1, Posicion posicion2, Posicion posicion3) {
+        double x1 = posicion1.getX();
+        double x2 = posicion2.getX();
+        double x3 = posicion3.getX();
+        double y1 = posicion1.getY();
+        double y2 = posicion2.getY();
+        double y3 = posicion3.getY();
+        return (y3 - y2) * (x2 - x1) == (y2 - y1) * (x3 - x2);
     }
 }
