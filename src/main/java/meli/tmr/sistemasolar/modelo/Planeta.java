@@ -44,6 +44,17 @@ public abstract class Planeta {
         return this.getPosicionDelSol().getY() + this.getDistanciaALaTierraEnKm() * Math.sin((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero));
     }
 
+
+    /**** Obtener coordenadas polares dependiendo del día *****
+     *
+     * X = centroDeGiroEnX + radio * cos( fase inicial + velocidad angular * numeroDedia )
+     * Y = centroDeGiroEnY + radio * sin( fase inicial + velocidad angular * numeroDedia )
+     *
+     * Si el planeta gira anti-horario, el resultado del seno en Y debe ser negativo.
+     *
+     * @param diaNumero
+     * @return Posicion(X,Y)
+     */
     public Posicion getPosicion(Integer diaNumero) {
         try {
             return new Posicion(getPosicionEnX(diaNumero), getPosicionEnY(diaNumero));
