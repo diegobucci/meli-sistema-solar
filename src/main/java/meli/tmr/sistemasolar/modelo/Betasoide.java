@@ -7,6 +7,7 @@ public class Betasoide extends Planeta {
         this.setDistanciaALaTierraEnKm(2000);
         this.setVelocidadAngularPorDia(3);
         this.setMovimientoEnSentidoHorario(true);
+        this.setCivilizacion("Batasoide");
     }
 
 }

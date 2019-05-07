@@ -7,6 +7,7 @@ public class Ferengi extends Planeta {
         this.setDistanciaALaTierraEnKm(500);
         this.setVelocidadAngularPorDia(1);
         this.setMovimientoEnSentidoHorario(true);
+        this.setCivilizacion("Ferengi");
     }
 
 }

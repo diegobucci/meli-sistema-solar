@@ -2,15 +2,12 @@ package meli.tmr.sistemasolar.modelo;
 
 import meli.tmr.sistemasolar.utils.DoubleUtil;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public abstract class Planeta {
 
+    private String civilizacion;
     private Integer velocidadAngularPorDia; // expresado en grados/dia
     private Integer distanciaALaTierraEnKm;
     private Boolean movimientoEnSentidoHorario;
-    private Posicion posicionDelSol;
 
     public Integer getVelocidadAngularPorDia() {
         return velocidadAngularPorDia;
@@ -36,17 +33,14 @@ public abstract class Planeta {
         this.movimientoEnSentidoHorario = movimientoEnSentidoHorario;
     }
 
-    private double getPosicionEnX(Integer diaNumero) throws Exception {
-        if(this.getPosicionDelSol() == null) throw new Exception();
+    private double getPosicionEnX(Integer diaNumero) {
         double ecuation = this.getDistanciaALaTierraEnKm() * Math.cos((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero));
-        // si el sentido de movimiento es antihorario deberia moverse para la izquierda, es decir, el seno deberia dar negativo
-        ecuation = this.getMovimientoEnSentidoHorario() ? ecuation : ecuation * (-1);
-        return DoubleUtil.round(this.getPosicionDelSol().getX() + ecuation);
+        ecuation = this.getMovimientoEnSentidoHorario() ? ecuation * (-1) : ecuation;
+        return DoubleUtil.round(ecuation);
     }
 
-    private double getPosicionEnY(Integer diaNumero) throws Exception {
-        if(this.getPosicionDelSol() == null) throw new Exception();
-        return DoubleUtil.round(this.getPosicionDelSol().getY() + this.getDistanciaALaTierraEnKm() * Math.sin((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero)));
+    private double getPosicionEnY(Integer diaNumero) {
+        return DoubleUtil.round(  this.getDistanciaALaTierraEnKm() * Math.sin((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero)));
     }
 
 
@@ -55,7 +49,8 @@ public abstract class Planeta {
      * X = centroDeGiroEnX + radio * cos( fase inicial + velocidad angular * numeroDedia )
      * Y = centroDeGiroEnY + radio * sin( fase inicial + velocidad angular * numeroDedia )
      *
-     * Si el planeta gira anti-horario, el resultado del seno en Y debe ser negativo.
+     * El centro de giro será (0,0). Es la posición del sol.
+     * Si el planeta gira en sentido horario, el resultado del seno (en Y) debe ser negativo.
      *
      * @param diaNumero
      * @return Posicion(X,Y)
@@ -69,11 +64,8 @@ public abstract class Planeta {
         }
     }
 
-    public Posicion getPosicionDelSol() {
-        return posicionDelSol;
-    }
 
-    public void setPosicionDelSol(Posicion posicionDelSol) {
-        this.posicionDelSol = posicionDelSol;
+    public void setCivilizacion(String civilizacion) {
+        this.civilizacion = civilizacion;
     }
 }
