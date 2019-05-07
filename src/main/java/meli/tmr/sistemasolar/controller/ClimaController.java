@@ -3,7 +3,7 @@ package meli.tmr.sistemasolar.controller;
 import meli.tmr.sistemasolar.exceptions.AniosException;
 import meli.tmr.sistemasolar.modelo.Planeta;
 import meli.tmr.sistemasolar.modelo.Posicion;
-import meli.tmr.sistemasolar.modelo.Reporte;
+import meli.tmr.sistemasolar.modelo.ReporteClima;
 import meli.tmr.sistemasolar.modelo.SistemaSolar;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +19,9 @@ public class ClimaController {
     public static final String INDETERMINADO = "indeterminado"; // forman un triangulo en el cual el sol no esta dentro
     private static final Integer DIAS_POR_ANIO = 365;
 
-      public Reporte obtenerReporte(SistemaSolar sistemaSolar, Integer cantidadDeAnios) throws Exception {
+      public ReporteClima obtenerReporte(SistemaSolar sistemaSolar, Integer cantidadDeAnios) throws Exception {
         if(cantidadDeAnios < 1 || cantidadDeAnios > 10) throw new AniosException("Los años deben variar entre 1 y 10");
-        Reporte reporte = new Reporte();
+        ReporteClima reporte = new ReporteClima();
         for (int diaNro = 0; diaNro < cantidadDeAnios * DIAS_POR_ANIO; diaNro++) {
             List<Posicion> posiciones = getPosiciones(sistemaSolar.getPlanetas(), diaNro);
             String clima = obtenerClima(posiciones, sistemaSolar.getPosicionDelSol());

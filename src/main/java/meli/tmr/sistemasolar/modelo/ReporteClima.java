@@ -1,12 +1,12 @@
 package meli.tmr.sistemasolar.modelo;
 
-public class Reporte {
+public class ReporteClima {
     private Integer cantidadDeDiasConSequia;
     private Integer cantidadDeDiasDeLluvias;
     private Integer diaPicoMaximoDeLluvia;
     private Integer cantidadDeDiasOptimos;
 
-    public Reporte(){
+    public ReporteClima(){
         this.setCantidadDeDiasConSequia(0);
         this.setCantidadDeDiasDeLluvias(0);
         this.setCantidadDeDiasOptimos(0);

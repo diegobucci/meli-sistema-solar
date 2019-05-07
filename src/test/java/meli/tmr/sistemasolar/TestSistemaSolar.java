@@ -38,7 +38,7 @@ public class TestSistemaSolar {
     @Test
     public void testSequiasEn1Dia() throws Exception {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
-        Reporte reporte = climaController.obtenerReporte(sistemaSolar,1);
+        ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getCantidadDeDiasConSequia()));
     }
 
