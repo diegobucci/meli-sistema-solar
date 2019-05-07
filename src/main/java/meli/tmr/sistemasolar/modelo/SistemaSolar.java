@@ -2,36 +2,34 @@ package meli.tmr.sistemasolar.modelo;
 
 import meli.tmr.sistemasolar.controller.ClimaController;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
 public class SistemaSolar {
 
-    private List<Civilizacion> planetas;
-    private Posicion posicionDelSol; // siempre está en el medio
-
-    @Inject
+    private List<Planeta> planetas;
+    private Posicion posicionDelSol;
     private ClimaController climaController;
 
-    public SistemaSolar(){
+    public SistemaSolar(ClimaController climaController){
         this.setPlanetas(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         this.calcularPosicionDelSol();
+        this.setClimaController(climaController);
     }
 
     private void calcularPosicionDelSol(){
-        Float posicionMaxima = new Float(0);
-        for(Civilizacion p : planetas) {
+        double posicionMaxima = 0.0;
+        for(Planeta p : planetas) {
             if(p.getDistanciaALaTierraEnKm() > posicionMaxima) posicionMaxima = p.getDistanciaALaTierraEnKm();
         }
         this.setPosicionDelSol(new Posicion(posicionMaxima, posicionMaxima));
     }
 
-    public List<Civilizacion> getPlanetas() {
+    public List<Planeta> getPlanetas() {
         return planetas;
     }
 
-    public void setPlanetas(List<Civilizacion> planetas) {
+    public void setPlanetas(List<Planeta> planetas) {
         this.planetas = planetas;
     }
 
@@ -46,5 +44,9 @@ public class SistemaSolar {
 
     public void setPosicionDelSol(Posicion posicionDelSol) {
         this.posicionDelSol = posicionDelSol;
+    }
+
+    public void setClimaController(ClimaController climaController) {
+        this.climaController = climaController;
     }
 }

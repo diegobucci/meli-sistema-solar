@@ -1,6 +1,6 @@
 package meli.tmr.sistemasolar.modelo;
 
-public class Betasoide extends Civilizacion {
+public class Betasoide extends Planeta {
 
     public Betasoide(){
         this.setDistanciaALaTierraEnKm(new Float(2000));
@@ -8,13 +8,4 @@ public class Betasoide extends Civilizacion {
         this.setMovimientoEnSentidoHorario(true);
     }
 
-    @Override
-    public Float getPosicionEnX(Integer diaNumero) {
-        return null;
-    }
-
-    @Override
-    public Float getPosicionEnY(Integer diaNumero) {
-        return null;
-    }
 }

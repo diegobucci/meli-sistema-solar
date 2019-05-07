@@ -1,6 +1,6 @@
 package meli.tmr.sistemasolar.modelo;
 
-public abstract class Civilizacion {
+public abstract class Planeta {
 
     private Float velocidadAngularPorDia;
     private Float distanciaALaTierraEnKm;
@@ -30,8 +30,16 @@ public abstract class Civilizacion {
         this.movimientoEnSentidoHorario = movimientoEnSentidoHorario;
     }
 
-    public abstract Float getPosicionEnX(Integer diaNumero);
+    public double getPosicionEnX(Integer diaNumero){
+        // Todos los planetas tienen X inicial = 0
+        return 0 + this.getDistanciaALaTierraEnKm() * Math.cos(90 + this.getVelocidadAngularPorDia() * diaNumero * 24);
+    }
 
-    public abstract Float getPosicionEnY(Integer diaNumero);
+    public double getPosicionEnY(Integer diaNumero){
+        // Todos los planetas tienen Y inicial = su distancia al sol
+        double ecuation = this.getDistanciaALaTierraEnKm() * Math.sin(90 + this.getVelocidadAngularPorDia() * diaNumero * 24);
+        ecuation = this.getMovimientoEnSentidoHorario() ? ecuation * (-1) : ecuation;
+        return this.getDistanciaALaTierraEnKm() + ecuation;
+    }
 
 }

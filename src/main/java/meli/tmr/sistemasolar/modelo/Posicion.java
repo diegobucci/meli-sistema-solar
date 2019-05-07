@@ -2,27 +2,27 @@ package meli.tmr.sistemasolar.modelo;
 
 public class Posicion {
 
-    private Float X;
-    private Float Y;
+    private double X;
+    private double Y;
 
-    public Posicion(Float X, Float Y){
+    public Posicion(double X, double Y){
         this.setX(X);
         this.setY(Y);
     }
 
-    public Float getX() {
+    public double getX() {
         return X;
     }
 
-    public void setX(Float x) {
+    public void setX(double x) {
         X = x;
     }
 
-    public Float getY() {
+    public double getY() {
         return Y;
     }
 
-    public void setY(Float y) {
+    public void setY(double y) {
         Y = y;
     }
 }

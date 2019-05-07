@@ -1,21 +1,21 @@
 package meli.tmr.sistemasolar.controller;
 
-import meli.tmr.sistemasolar.modelo.Civilizacion;
+import meli.tmr.sistemasolar.modelo.Planeta;
 import meli.tmr.sistemasolar.modelo.Posicion;
 import meli.tmr.sistemasolar.modelo.Reporte;
+import org.springframework.stereotype.Service;
 
-import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
+@Service
 public class ClimaController {
     public static final String LLUVIA = "lluvia";
     public static final String SEQUIA = "sequia";
     public static final String OPTIMO = "optimo";
     private static final Integer DIAS_POR_ANIO = 365;
 
-    public Reporte obtenerReporte(List<Civilizacion> planetas, Posicion posicionDelSol, Integer cantidadDeAnios) throws Exception {
+    public Reporte obtenerReporte(List<Planeta> planetas, Posicion posicionDelSol, Integer cantidadDeAnios) throws Exception {
         Reporte reporte = new Reporte();
         for (int diaNro = 0; diaNro < cantidadDeAnios * DIAS_POR_ANIO; diaNro++) {
             List<Posicion> posiciones = getPosiciones(planetas, diaNro);
@@ -48,12 +48,12 @@ public class ClimaController {
     }
 
     private Double distanciaEntre(Posicion posicion1, Posicion posicion2){
-        Float diferenciaEnX = Math.abs(posicion1.getX() - posicion2.getX());
-        Float diferenciaEnY = Math.abs(posicion1.getY() - posicion2.getY());
+        double diferenciaEnX = Math.abs(posicion1.getX() - posicion2.getX());
+        double diferenciaEnY = Math.abs(posicion1.getY() - posicion2.getY());
         return Math.sqrt((diferenciaEnX) * (diferenciaEnX) + (diferenciaEnY) * (diferenciaEnY));
     }
 
-    private List<Posicion> getPosiciones(List<Civilizacion> planetas, Integer diaNumero){
+    private List<Posicion> getPosiciones(List<Planeta> planetas, Integer diaNumero){
         List<Posicion> posiciones = new ArrayList<>();
         planetas.forEach(p -> posiciones.add(new Posicion(p.getPosicionEnX(diaNumero), p.getPosicionEnY(diaNumero))));
         return posiciones;
