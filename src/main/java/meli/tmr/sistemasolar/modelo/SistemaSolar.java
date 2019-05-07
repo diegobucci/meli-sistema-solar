@@ -1,6 +1,7 @@
 package meli.tmr.sistemasolar.modelo;
 
 import meli.tmr.sistemasolar.exceptions.SistemaSolarException;
+import meli.tmr.sistemasolar.utils.DoubleUtil;
 
 import java.util.Collections;
 import java.util.Comparator;

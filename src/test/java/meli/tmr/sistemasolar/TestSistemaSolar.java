@@ -38,10 +38,17 @@ public class TestSistemaSolar {
 
 
     @Test
-    public void testSequiasEn1Dia() throws Exception {
+    public void testSequiasEn1Anio() throws Exception {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getCantidadDeDiasConSequia()));
+    }
+
+    @Test
+    public void testReporteEn10Anios() throws Exception {
+        SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,10);
+        Assert.assertEquals(0, reporte.getCantidadDeDiasConSequia(), 0);
     }
 
     @Test

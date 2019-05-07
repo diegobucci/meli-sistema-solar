@@ -1,5 +1,10 @@
 package meli.tmr.sistemasolar.modelo;
 
+import meli.tmr.sistemasolar.utils.DoubleUtil;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public abstract class Planeta {
 
     private Integer velocidadAngularPorDia; // expresado en grados/dia
@@ -36,12 +41,12 @@ public abstract class Planeta {
         double ecuation = this.getDistanciaALaTierraEnKm() * Math.cos((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero));
         // si el sentido de movimiento es antihorario deberia moverse para la izquierda, es decir, el seno deberia dar negativo
         ecuation = this.getMovimientoEnSentidoHorario() ? ecuation : ecuation * (-1);
-        return this.getPosicionDelSol().getX() + ecuation;
+        return DoubleUtil.round(this.getPosicionDelSol().getX() + ecuation);
     }
 
     private double getPosicionEnY(Integer diaNumero) throws Exception {
         if(this.getPosicionDelSol() == null) throw new Exception();
-        return this.getPosicionDelSol().getY() + this.getDistanciaALaTierraEnKm() * Math.sin((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero));
+        return DoubleUtil.round(this.getPosicionDelSol().getY() + this.getDistanciaALaTierraEnKm() * Math.sin((Math.PI/2) + Math.toRadians(this.getVelocidadAngularPorDia() * diaNumero)));
     }
 
 
