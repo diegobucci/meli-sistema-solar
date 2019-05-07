@@ -1,8 +1,11 @@
 package meli.tmr.sistemasolar.modelo;
 
 import meli.tmr.sistemasolar.controller.ClimaController;
+import meli.tmr.sistemasolar.exceptions.AniosException;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SistemaSolar {
@@ -12,16 +15,13 @@ public class SistemaSolar {
     private ClimaController climaController;
 
     public SistemaSolar(ClimaController climaController){
+        this.setClimaController(climaController);
         this.setPlanetas(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         this.calcularPosicionDelSol();
-        this.setClimaController(climaController);
     }
 
     private void calcularPosicionDelSol(){
-        double posicionMaxima = 0.0;
-        for(Planeta p : planetas) {
-            if(p.getDistanciaALaTierraEnKm() > posicionMaxima) posicionMaxima = p.getDistanciaALaTierraEnKm();
-        }
+        double posicionMaxima = Collections.max(this.getPlanetas(), Comparator.comparing(Planeta::getDistanciaALaTierraEnKm)).getDistanciaALaTierraEnKm();
         this.setPosicionDelSol(new Posicion(posicionMaxima, posicionMaxima));
     }
 
@@ -34,7 +34,7 @@ public class SistemaSolar {
     }
 
     public Reporte obtenerReporte(Integer cantidadDeAnios) throws Exception {
-        if(cantidadDeAnios < 1 || cantidadDeAnios > 10) throw new Exception("Los años deben variar entre 1 y 10");
+        if(cantidadDeAnios < 1 || cantidadDeAnios > 10) throw new AniosException("Los años deben variar entre 1 y 10");
         return climaController.obtenerReporte(this.getPlanetas(), this.getPosicionDelSol(), cantidadDeAnios);
     }
 
