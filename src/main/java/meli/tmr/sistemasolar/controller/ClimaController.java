@@ -55,7 +55,7 @@ public class ClimaController {
 
     private List<Posicion> getPosiciones(List<Planeta> planetas, Integer diaNumero){
         List<Posicion> posiciones = new ArrayList<>();
-        planetas.forEach(p -> posiciones.add(new Posicion(p.getPosicionEnX(diaNumero), p.getPosicionEnY(diaNumero))));
+        planetas.forEach(p -> posiciones.add(p.getPosicion(diaNumero)));
         return posiciones;
     }
 }
