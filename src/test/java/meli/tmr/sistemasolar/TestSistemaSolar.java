@@ -60,6 +60,7 @@ public class TestSistemaSolar {
             Assert.assertThat(e.getMessage(), is("Se esperan tres planetas"));
         }
     }
+
 }
 
 
