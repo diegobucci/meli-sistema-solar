@@ -12,11 +12,9 @@ public class SistemaSolar {
 
     private List<Planeta> planetas;
     private Posicion posicionDelSol;
-    private ClimaController climaController;
 
-    public SistemaSolar(ClimaController climaController){
-        this.setClimaController(climaController);
-        this.setPlanetas(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+    public SistemaSolar(List<Planeta> planetas){
+        this.setPlanetas(planetas);
         this.calcularPosicionDelSol();
     }
 
@@ -33,10 +31,6 @@ public class SistemaSolar {
         this.planetas = planetas;
     }
 
-    public Reporte obtenerReporte(Integer cantidadDeAnios) throws Exception {
-        if(cantidadDeAnios < 1 || cantidadDeAnios > 10) throw new AniosException("Los años deben variar entre 1 y 10");
-        return climaController.obtenerReporte(this.getPlanetas(), this.getPosicionDelSol(), cantidadDeAnios);
-    }
 
     public Posicion getPosicionDelSol() {
         return posicionDelSol;
@@ -46,7 +40,4 @@ public class SistemaSolar {
         this.posicionDelSol = posicionDelSol;
     }
 
-    public void setClimaController(ClimaController climaController) {
-        this.climaController = climaController;
-    }
 }

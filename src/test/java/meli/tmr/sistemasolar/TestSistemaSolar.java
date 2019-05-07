@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,16 +36,16 @@ public class TestSistemaSolar {
 
     @Test
     public void testSequiasEn1Dia() throws Exception {
-        SistemaSolar sistemaSolar = new SistemaSolar(this.climaController);
-        Reporte reporte = sistemaSolar.obtenerReporte(1);
+        SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        Reporte reporte = climaController.obtenerReporte(sistemaSolar,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getCantidadDeDiasConSequia()));
     }
 
     @Test
     public void testObtenerReporteExceptionAniosSuperiorADiez() {
-        SistemaSolar sistemaSolar = new SistemaSolar(this.climaController);
+        SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         try {
-            sistemaSolar.obtenerReporte(99);
+            climaController.obtenerReporte(sistemaSolar,99);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), is("Los años deben variar entre 1 y 10"));
         }
