@@ -58,7 +58,7 @@ public abstract class Planet {
     }
 
     private void rotateAntiClockwise(){
-        int actualGradeUpdated = ((getActualGrade() - getAngularVelocityInGradesPerDay()) > 360)
+        int actualGradeUpdated = ((getActualGrade() + getAngularVelocityInGradesPerDay()) > 360)
                 ? (getActualGrade() + getAngularVelocityInGradesPerDay() - 360)
                 : (getActualGrade() + getAngularVelocityInGradesPerDay());
         setActualGrade(actualGradeUpdated);
@@ -120,7 +120,7 @@ public abstract class Planet {
     }
 
     public void setActualGrade(int actualGrade) {
-        this.actualGrade = actualGrade;
+        this.actualGrade = actualGrade == 360 ? 0 : actualGrade;
     }
 
     public String getCivilizationName() {

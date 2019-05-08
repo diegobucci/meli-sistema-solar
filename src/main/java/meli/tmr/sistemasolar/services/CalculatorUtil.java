@@ -44,10 +44,8 @@ public class CalculatorUtil {
         return result1.equals(result2);
     }
 
-    protected boolean areInlineWithTheSun(Planet planet1, Planet planet2, Planet planet3){
-        return gradesAreInline(planet1.getActualGrade(), planet2.getActualGrade())
-                && gradesAreInline(planet2.getActualGrade(), planet3.getActualGrade())
-                && gradesAreInline(planet3.getActualGrade(), planet1.getActualGrade());
+    protected boolean areInlineWithTheSun(int grade1, int grade2, int grade3){
+        return gradesAreInline(grade1, grade2) && gradesAreInline(grade2, grade3) && gradesAreInline(grade3, grade1);
     }
 
     protected boolean gradesAreInline(int grades1, int grades2){

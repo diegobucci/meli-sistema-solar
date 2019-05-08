@@ -67,7 +67,7 @@ public class WeatherService {
         if(calculatorUtil.areInline(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())){
             // Los planetas se encuentran alineados entre sí
             clima = WeatherEnum.OPTIMUM;
-            if(calculatorUtil.areInlineWithTheSun(planets.get(0), planets.get(1), planets.get(2))){
+            if(calculatorUtil.areInlineWithTheSun(planet1.getActualGrade(), planet2.getActualGrade(), planet3.getActualGrade())){
                 clima = WeatherEnum.DROUGHT; // Si además están alineados con el sol el clima es SEQUIA
             }
         } else if(calculatorUtil.sunIsInside(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())) {
