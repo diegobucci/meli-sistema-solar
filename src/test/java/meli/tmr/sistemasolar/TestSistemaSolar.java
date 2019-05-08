@@ -1,6 +1,6 @@
 package meli.tmr.sistemasolar;
 
-import meli.tmr.sistemasolar.controller.ClimaController;
+import meli.tmr.sistemasolar.services.ClimaService;
 import meli.tmr.sistemasolar.exceptions.SistemaSolarException;
 import meli.tmr.sistemasolar.modelo.*;
 import org.junit.Assert;
@@ -19,7 +19,7 @@ import static org.hamcrest.core.Is.is;
 public class TestSistemaSolar {
 
     @Autowired
-    private ClimaController climaController;
+    private ClimaService climaService;
 
 //    @Test
 //    public void testFerengiPositionXDia1(){
@@ -40,14 +40,14 @@ public class TestSistemaSolar {
     @Test
     public void testSequiasEn1Anio() throws Exception {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
-        ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,1);
+        ReporteClima reporte = climaService.obtenerReporte(sistemaSolar,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getCantidadDeDiasConSequia()));
     }
 
     @Test
     public void testReporteEn10Anios() throws Exception {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
-        ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,10);
+        ReporteClima reporte = climaService.obtenerReporte(sistemaSolar,10);
         Assert.assertEquals(0, reporte.getCantidadDeDiasConSequia(), 0);
     }
 
@@ -55,7 +55,7 @@ public class TestSistemaSolar {
     public void testObtenerReporteExceptionAniosSuperiorADiez() throws SistemaSolarException {
         SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         try {
-            climaController.obtenerReporte(sistemaSolar,99);
+            climaService.obtenerReporte(sistemaSolar,99);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), is("Los años deben variar entre 1 y 10"));
         }

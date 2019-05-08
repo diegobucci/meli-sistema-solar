@@ -9,6 +9,13 @@ public abstract class Planeta {
     private Integer distanciaALaTierraEnKm;
     private Boolean movimientoEnSentidoHorario;
 
+    public Planeta(String civilizacion, Integer velocidadAngularPorDia, Integer distanciaALaTierraEnKm, Boolean movimientoEnSentidoHorario) {
+        this.civilizacion = civilizacion;
+        this.velocidadAngularPorDia = velocidadAngularPorDia;
+        this.distanciaALaTierraEnKm = distanciaALaTierraEnKm;
+        this.movimientoEnSentidoHorario = movimientoEnSentidoHorario;
+    }
+
     public Integer getVelocidadAngularPorDia() {
         return velocidadAngularPorDia;
     }
