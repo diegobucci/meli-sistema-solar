@@ -1,15 +1,24 @@
 package meli.tmr.sistemasolar.services;
 
-import meli.tmr.sistemasolar.model.Position;
+import meli.tmr.sistemasolar.models.Planet;
+import meli.tmr.sistemasolar.models.Position;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 @Component
 public class CalculatorUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CalculatorUtil.class);
 
      protected double getPerimeter(Position position1, Position position2, Position position3) {
+         LOGGER.warn("Obtener perimetro del triangulo formado por: ");
+         LOGGER.info(Position.getPositionAsString(position1));
+         LOGGER.info(Position.getPositionAsString(position2));
+         LOGGER.info(Position.getPositionAsString(position3));
         return distanceBetween(position1, position2) + distanceBetween(position2, position3) + distanceBetween(position3, position1);
     }
 
@@ -19,27 +28,43 @@ public class CalculatorUtil {
         return Math.sqrt(Math.pow(xDifference,2) + Math.pow(yDifference,2));
     }
 
-     protected boolean areInline(Position position1, Position position2, Position position3) {
-         // Para realizar cuentas aritméticas se utilizó BigDecimal ya que proporciona una mejor precisión
-         BigDecimal x1 = BigDecimal.valueOf(position1.getX());
-         BigDecimal y1 = BigDecimal.valueOf(position1.getY());
-         BigDecimal x2 = BigDecimal.valueOf(position2.getX());
-         BigDecimal y2 = BigDecimal.valueOf(position2.getY());
-         BigDecimal x3 = BigDecimal.valueOf(position3.getX());
-         BigDecimal y3 = BigDecimal.valueOf(position3.getY());
-         if((x1.equals(x2) && x2.equals(x3) && x1.equals(x3)) || (y1.equals(y2) && y2.equals(y3) && y1.equals(y3))) {
-             // Si están en el mismo eje X o Y => están alineados
-             return true;
-         }
-         BigDecimal result1 = (x2.subtract(x1)).divide(x3.subtract(x2), 2, RoundingMode.HALF_UP);
-         BigDecimal result2 = (x2.subtract(x1)).divide(x3.subtract(x2), 2, RoundingMode.HALF_UP);
-         return result1.equals(result2);
-     }
+    protected boolean areInline(Position position1, Position position2, Position position3) {
+        BigDecimal x1 = BigDecimal.valueOf(position1.getX()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal y1 = BigDecimal.valueOf(position1.getY()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal x2 = BigDecimal.valueOf(position2.getX()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal y2 = BigDecimal.valueOf(position2.getY()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal x3 = BigDecimal.valueOf(position3.getX()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal y3 = BigDecimal.valueOf(position3.getY()).setScale(4, RoundingMode.HALF_EVEN);
+        if((x1.equals(x2) && x2.equals(x3) && x1.equals(x3)) || (y1.equals(y2) && y2.equals(y3) && y1.equals(y3))) {
+            // Si están en el mismo eje X o Y => están alineados
+            return true;
+        }
+        BigDecimal result1 = (y2.subtract(y1)).multiply(x3.subtract(x1), MathContext.DECIMAL128);
+        BigDecimal result2 = (y3.subtract(y1)).multiply(x2.subtract(x1), MathContext.DECIMAL128);
+        return result1.equals(result2);
+    }
 
-    protected boolean isInside(Position position1, Position position2, Position position3, Position positionInside) {
-        double d1 = sign(positionInside, position1, position2);
-        double d2 = sign(positionInside, position2, position3);
-        double d3 = sign(positionInside, position3, position1);
+    protected boolean areInlineWithTheSun(Planet planet1, Planet planet2, Planet planet3){
+        return gradesAreInline(planet1.getActualGrade(), planet2.getActualGrade())
+                && gradesAreInline(planet2.getActualGrade(), planet3.getActualGrade())
+                && gradesAreInline(planet3.getActualGrade(), planet1.getActualGrade());
+    }
+
+    protected boolean gradesAreInline(int grades1, int grades2){
+         if(grades1 >= 180) grades1 -= 180;
+         if(grades2 >= 180) grades2 -= 180;
+         return grades1 == grades2;
+    }
+
+    protected boolean sunIsInside(Position position1, Position position2, Position position3) {
+        LOGGER.warn("Verificar si el sol se encuentra dentro del área formada por: ");
+        LOGGER.info(Position.getPositionAsString(position1));
+        LOGGER.info(Position.getPositionAsString(position2));
+        LOGGER.info(Position.getPositionAsString(position3));
+        Position sunPosition = new Position(0,0);
+        double d1 = sign(sunPosition, position1, position2);
+        double d2 = sign(sunPosition, position2, position3);
+        double d3 = sign(sunPosition, position3, position1);
 
         boolean has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
         boolean has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
@@ -50,5 +75,6 @@ public class CalculatorUtil {
     private double sign(Position p1, Position p2, Position p3) {
         return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
     }
+
 
 }

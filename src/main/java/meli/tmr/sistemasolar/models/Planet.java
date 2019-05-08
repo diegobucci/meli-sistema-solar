@@ -1,4 +1,4 @@
-package meli.tmr.sistemasolar.model;
+package meli.tmr.sistemasolar.models;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public abstract class Planet {
         else rotateAntiClockwise();
         updatePosition();
         LOGGER.warn("Posición de " + getCivilizationName() + " actualizada");
-        LOGGER.warn("Grado actual: " + getActualGrade());
+        LOGGER.warn("Grado actual de " + getCivilizationName() + ": " + getActualGrade());
     }
 
     private void rotateClockwise(){

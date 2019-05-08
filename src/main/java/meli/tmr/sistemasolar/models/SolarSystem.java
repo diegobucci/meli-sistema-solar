@@ -1,6 +1,6 @@
-package meli.tmr.sistemasolar.model;
+package meli.tmr.sistemasolar.models;
 
-import meli.tmr.sistemasolar.exceptions.SistemaSolarException;
+import meli.tmr.sistemasolar.exceptions.SolarSystemException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ public class SolarSystem {
         setPlanets(new ArrayList<>());
     }
 
-    public SolarSystem(List<Planet> planets) throws SistemaSolarException {
-        if(planets == null || planets.size() != 3) throw new SistemaSolarException("Se esperan tres planetas");
+    public SolarSystem(List<Planet> planets) throws SolarSystemException {
+        if(planets == null || planets.size() != 3) throw new SolarSystemException("Se esperan tres planetas");
         setPlanets(planets);
     }
 
@@ -27,7 +27,7 @@ public class SolarSystem {
     }
 
     public void addPlanet(Planet planet){
-        if(getPlanets() != null && getPlanets().size() == 3) throw new SistemaSolarException("El sistema solar ya contiene tres planetas");
+        if(getPlanets() != null && getPlanets().size() == 3) throw new SolarSystemException("El sistema solar ya contiene tres planetas");
         getPlanets().add(planet);
     }
 

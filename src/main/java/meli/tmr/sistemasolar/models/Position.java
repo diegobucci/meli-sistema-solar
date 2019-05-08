@@ -1,4 +1,4 @@
-package meli.tmr.sistemasolar.model;
+package meli.tmr.sistemasolar.models;
 
 public class Position {
 
@@ -24,5 +24,9 @@ public class Position {
 
     public void setY(double y) {
         Y = y;
+    }
+
+    public static String getPositionAsString(Position position){
+        return "Position (" + position.getX() + ", " + position.getY() + ")";
     }
 }

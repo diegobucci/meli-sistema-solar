@@ -1,6 +1,4 @@
-package meli.tmr.sistemasolar.model;
-
-import java.time.LocalDate;
+package meli.tmr.sistemasolar.models;
 
 public class WeatherReport {
     private Integer numberOfDroughtDays;

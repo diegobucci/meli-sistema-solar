@@ -1,4 +1,4 @@
-package meli.tmr.sistemasolar.model;
+package meli.tmr.sistemasolar.models;
 
 public class Vulcano extends Planet {
 
