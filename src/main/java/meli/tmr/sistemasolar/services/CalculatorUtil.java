@@ -1,6 +1,5 @@
 package meli.tmr.sistemasolar.services;
 
-import meli.tmr.sistemasolar.models.Planet;
 import meli.tmr.sistemasolar.models.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,19 +28,19 @@ public class CalculatorUtil {
     }
 
     protected boolean areInline(Position position1, Position position2, Position position3) {
-        BigDecimal x1 = BigDecimal.valueOf(position1.getX()).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal y1 = BigDecimal.valueOf(position1.getY()).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal x2 = BigDecimal.valueOf(position2.getX()).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal y2 = BigDecimal.valueOf(position2.getY()).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal x3 = BigDecimal.valueOf(position3.getX()).setScale(4, RoundingMode.HALF_EVEN);
-        BigDecimal y3 = BigDecimal.valueOf(position3.getY()).setScale(4, RoundingMode.HALF_EVEN);
+        BigDecimal x1 = BigDecimal.valueOf(position1.getX()).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal y1 = BigDecimal.valueOf(position1.getY()).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal x2 = BigDecimal.valueOf(position2.getX()).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal y2 = BigDecimal.valueOf(position2.getY()).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal x3 = BigDecimal.valueOf(position3.getX()).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal y3 = BigDecimal.valueOf(position3.getY()).setScale(2, RoundingMode.HALF_EVEN);
         if((x1.equals(x2) && x2.equals(x3) && x1.equals(x3)) || (y1.equals(y2) && y2.equals(y3) && y1.equals(y3))) {
             // Si están en el mismo eje X o Y => están alineados
             return true;
         }
-        BigDecimal result1 = (y2.subtract(y1)).multiply(x3.subtract(x1), MathContext.DECIMAL128);
-        BigDecimal result2 = (y3.subtract(y1)).multiply(x2.subtract(x1), MathContext.DECIMAL128);
-        return result1.equals(result2);
+        BigDecimal result1 = (y2.subtract(y1)).divide(x3.subtract(x1), MathContext.DECIMAL128);
+        BigDecimal result2 = (y3.subtract(y1)).divide(x2.subtract(x1), MathContext.DECIMAL128);
+        return result1.equals(result2); // TODO: esto da siempre false
     }
 
     protected boolean areInlineWithTheSun(int grade1, int grade2, int grade3){

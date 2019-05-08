@@ -38,7 +38,7 @@ public class TestSolarSystem {
 
 
     @Test
-    public void testSequiasEn1Anio() throws Exception {
+    public void testSequiasEn1Anio() {
         SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getNumberOfDroughtDays()));
