@@ -1,11 +1,11 @@
-package meli.tmr.sistemasolar.modelo;
+package meli.tmr.sistemasolar.model;
 
-public class Posicion {
+public class Position {
 
     private double X;
     private double Y;
 
-    public Posicion(double X, double Y){
+    public Position(double X, double Y){
         this.setX(X);
         this.setY(Y);
     }
