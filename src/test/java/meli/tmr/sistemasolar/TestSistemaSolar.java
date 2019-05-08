@@ -45,9 +45,9 @@ public class TestSistemaSolar {
     }
 
     @Test
-    public void testObtenerReporteExceptionAniosSuperiorADiez() throws SistemaSolarException {
-        SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+    public void testObtenerReporteExceptionAniosSuperiorADiez() {
         try {
+            SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
             climaController.obtenerReporte(sistemaSolar,99);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), is("Los años deben variar entre 1 y 10"));
@@ -61,6 +61,13 @@ public class TestSistemaSolar {
         } catch (SistemaSolarException e) {
             Assert.assertThat(e.getMessage(), is("Se esperan tres planetas"));
         }
+    }
+
+    @Test
+    public void test10Anios() throws Exception {
+        SistemaSolar sistemaSolar = new SistemaSolar(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        ReporteClima reporte = climaController.obtenerReporte(sistemaSolar,10);
+        Assert.assertEquals(2,reporte.getCantidadDeDiasConSequia(),0);
     }
 
 }
