@@ -41,16 +41,20 @@ public class WeatherService {
 
             switch(clima){
                 case RAIN:
+                    LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
                     report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
-                    if(getPerimeter(solarSystem.getPlanets()) > maxPerimeter){
-                        report.setDayOfGreatestRain(dayNumber);
-                    }
+                    if(getPerimeter(solarSystem.getPlanets()) > maxPerimeter)report.setDayOfGreatestRain(dayNumber);
                     break;
                 case DROUGHT:
+                    LOGGER.info("Se espera SEQUÍA para el día " + dayNumber);
                     report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
                     break;
                 case OPTIMUM:
+                    LOGGER.info("Se espera un clima ÓPTIMO para el día " + dayNumber);
                     report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
+                    break;
+                case UNDEFINED:
+                    LOGGER.warn("No se detectó ningún clima");
                     break;
             }
         }

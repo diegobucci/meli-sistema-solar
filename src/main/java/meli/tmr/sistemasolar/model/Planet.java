@@ -47,17 +47,18 @@ public abstract class Planet {
         else rotateAntiClockwise();
         updatePosition();
         LOGGER.warn("Posición de " + getCivilizationName() + " actualizada");
+        LOGGER.warn("Grado actual: " + getActualGrade());
     }
 
     private void rotateClockwise(){
-        int actualGradeUpdated = getActualGrade() - getAngularVelocityInGradesPerDay() < 0
+        int actualGradeUpdated = ((getActualGrade() - getAngularVelocityInGradesPerDay()) < 0)
                 ? (getActualGrade() - getAngularVelocityInGradesPerDay() + 360)
                 : (getActualGrade() - getAngularVelocityInGradesPerDay());
         setActualGrade(actualGradeUpdated);
     }
 
     private void rotateAntiClockwise(){
-        int actualGradeUpdated = getActualGrade() - getAngularVelocityInGradesPerDay() > 360
+        int actualGradeUpdated = ((getActualGrade() - getAngularVelocityInGradesPerDay()) > 360)
                 ? (getActualGrade() + getAngularVelocityInGradesPerDay() - 360)
                 : (getActualGrade() + getAngularVelocityInGradesPerDay());
         setActualGrade(actualGradeUpdated);
