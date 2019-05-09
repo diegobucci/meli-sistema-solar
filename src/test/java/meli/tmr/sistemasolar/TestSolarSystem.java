@@ -22,32 +22,9 @@ public class TestSolarSystem {
     @Autowired
     private WeatherService weatherService;
 
-//    @Test
-//    public void testFerengiPositionXDia1(){
-//        Planet ferengi = new Ferengi();
-//        Position posicionDia1 = ferengi.getPosition(1);
-//        Assert.assertEquals(309.76030628, posicionDia1.getX(), 1);
-//    }
-//
-//    @Test
-//    public void testFerengiPositionYDia1() throws SolarSystemException {
-//        Planet ferengi = new Ferengi();
-//        new SolarSystem(Arrays.asList(ferengi, new Vulcano(), new Betasoide()));
-//        Position posicionDia1 = ferengi.getPosition(1);
-//        Assert.assertEquals(2712.08950367, posicionDia1.getY(), 1);
-//    }
-
-/*
-    @Test
-    public void testSequiasEn1Anio() {
-        SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
-        WeatherReport reporte = weatherService.getWeatherReport(solarSystem,1);
-        Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getNumberOfDroughtDays()));
-    }*/
-
 
     @Test
-    public void testObtenerReporteExceptionAniosSuperiorADiez() throws SolarSystemException {
+    public void testGetReportMoreThan10YearsException() throws SolarSystemException {
         SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         try {
             weatherService.getWeatherReport(solarSystem,99);
@@ -57,11 +34,31 @@ public class TestSolarSystem {
     }
 
     @Test
-    public void testCreacionSistemaSolarException() {
+    public void testGetReportLessThan1YearException() throws SolarSystemException {
+        SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        try {
+            weatherService.getWeatherReport(solarSystem,-10);
+        } catch (Exception e) {
+            Assert.assertThat(e.getMessage(), is("Los años deben variar entre 1 y 10"));
+        }
+    }
+
+    @Test
+    public void testCreateSolarSystemWithTwoPlanetsException() {
         try {
             new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi()));
         } catch (SolarSystemException e) {
             Assert.assertThat(e.getMessage(), is("Se esperan tres planetas"));
+        }
+    }
+
+    @Test
+    public void testCreateSolarSystemWithFourPlanetsException() {
+        try {
+            SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+            solarSystem.addPlanet(new Vulcano());
+        } catch (SolarSystemException e) {
+            Assert.assertThat(e.getMessage(), is("El sistema solar ya contiene tres planetas"));
         }
     }
 

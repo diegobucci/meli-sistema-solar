@@ -42,7 +42,7 @@ public abstract class Planet {
         LOGGER.info(getCivilizationName() + " inicializado girando en órbita");
     }
 
-    public void moveOneDay() {
+    public void advanceOneDay() {
         LOGGER.warn("Se produce movimiento de " + getCivilizationName() + " en sentido " + (getMovementClockwise() ? "horario" : "anti horario"));
         rotate();
         updatePosition();

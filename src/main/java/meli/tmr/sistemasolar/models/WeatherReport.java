@@ -5,11 +5,13 @@ public class WeatherReport {
     private Integer numberOfRainyDays;
     private Integer dayOfGreatestRain;
     private Integer numberOfOptimalDays;
+    private Integer maxPerimeterRain;
 
     public WeatherReport(){
         this.setNumberOfDroughtDays(0);
         this.setNumberOfRainyDays(0);
         this.setNumberOfOptimalDays(0);
+        this.setMaxPerimeterRain(0);
     }
 
     public Integer getNumberOfDroughtDays() {
@@ -42,5 +44,13 @@ public class WeatherReport {
 
     public void setNumberOfOptimalDays(Integer numberOfOptimalDays) {
         this.numberOfOptimalDays = numberOfOptimalDays;
+    }
+
+    public Integer getMaxPerimeterRain() {
+        return maxPerimeterRain;
+    }
+
+    public void setMaxPerimeterRain(Integer maxPerimeterRain) {
+        this.maxPerimeterRain = maxPerimeterRain;
     }
 }

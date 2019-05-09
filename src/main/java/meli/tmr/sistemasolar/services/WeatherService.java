@@ -23,41 +23,43 @@ public class WeatherService {
     }
 
     public WeatherReport getWeatherReport(SolarSystem solarSystem, Integer years) {
+        checkErrors(solarSystem, years);
         LOGGER.info("Obtener reporte para los próximos " + years + " años");
-        if(years < 1 || years > 10) throw new YearsException("Los años deben variar entre 1 y 10");
-        if(solarSystem.getPlanets() == null || solarSystem.getPlanets().size() != 3) throw new SolarSystemException("Solo es posible predecir el clima de sistemas con 3 planetas");
-        // todo: validator en el controller
+        return iterateDays(solarSystem, getDays(years));
+    }
 
+    private WeatherReport iterateDays(SolarSystem solarSystem, Integer days){
         WeatherReport report = new WeatherReport();
-        double maxPerimeter = 0;
-
-        for (int dayNumber = 1; dayNumber <= getDays(years); dayNumber++) {
+        for (int dayNumber = 1; dayNumber <= days; dayNumber++) {
             LOGGER.info("Día numero: " + dayNumber);
-            solarSystem.getPlanets().forEach(p -> p.moveOneDay());
-            switch(getWeather(solarSystem.getPlanets())){
-                case RAIN:
-                    LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
-                    report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
-                    if(getPerimeter(solarSystem.getPlanets()) > maxPerimeter)report.setDayOfGreatestRain(dayNumber);
-                    break;
-                case DROUGHT:
-                    LOGGER.info("Se espera SEQUÍA para el día " + dayNumber);
-                    report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
-                    break;
-                case OPTIMUM:
-                    LOGGER.info("Se espera un clima ÓPTIMO para el día " + dayNumber);
-                    report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
-                    break;
-                case UNDEFINED:
-                    LOGGER.error("No se detectó ningún clima");
-                    break;
-            }
-
+            solarSystem.advanceOneDay();
+            completeReportForDay(report, solarSystem.getPlanets(), dayNumber);
         }
         return report;
     }
 
-    public WeatherEnum getWeather(List<Planet> planets){
+    private void completeReportForDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
+        switch(getWeather(planets)){
+            case RAIN:
+                LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
+                report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
+                if(getPerimeter(planets) > report.getMaxPerimeterRain()) report.setDayOfGreatestRain(dayNumber);
+                break;
+            case DROUGHT:
+                LOGGER.info("Se espera SEQUÍA para el día " + dayNumber);
+                report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
+                break;
+            case OPTIMUM:
+                LOGGER.info("Se espera un clima ÓPTIMO para el día " + dayNumber);
+                report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
+                break;
+            case UNDEFINED:
+                LOGGER.error("No se detectó ningún clima");
+                break;
+        }
+    }
+
+    private WeatherEnum getWeather(List<Planet> planets){
         // Previamente se validó el tamaño del array así que no debería lanzarse la excepción IndexOutOfBounds
         Planet planet1 = planets.get(0);
         Planet planet2 = planets.get(1);
@@ -77,6 +79,11 @@ public class WeatherService {
 
     private double getPerimeter(List<Planet> planets) {
         return this.calculatorUtil.getPerimeter(planets.get(0).getPosition(), planets.get(1).getPosition(), planets.get(2).getPosition());
+    }
+
+    private void checkErrors(SolarSystem solarSystem, Integer years){
+        if(years < 1 || years > 10) throw new YearsException("Los años deben variar entre 1 y 10");
+        if(solarSystem.getPlanets() == null || solarSystem.getPlanets().size() != 3) throw new SolarSystemException("Solo es posible predecir el clima de sistemas con 3 planetas");
     }
 
     private Integer getDays(int years){

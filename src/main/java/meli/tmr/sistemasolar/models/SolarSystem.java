@@ -32,4 +32,7 @@ public class SolarSystem {
     }
 
 
+    public void advanceOneDay() {
+        getPlanets().forEach(p -> p.advanceOneDay());
+    }
 }
