@@ -63,10 +63,14 @@ public class TestSolarSystem {
     }
 
     @Test
-    public void test10Anios()  {
+    public void testWeatherIn10Years()  {
+        // TODO estan bien los resultados?
         SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
-        Assert.assertEquals(2,reporte.getNumberOfDroughtDays(),0);
+        Assert.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0);
+        Assert.assertEquals(1148 ,reporte.getNumberOfRainyDays(),0);
+        Assert.assertEquals(3630 ,reporte.getDayOfGreatestRain(),0);
+        Assert.assertEquals(122 ,reporte.getNumberOfOptimalDays(),0);
     }
 
     @Test
