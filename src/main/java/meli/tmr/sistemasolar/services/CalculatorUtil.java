@@ -72,6 +72,21 @@ public class CalculatorUtil {
     private double sign(Position p1, Position p2, Position p3) {
         return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
     }
+    
+    public static double getCos(int grades){
+        // Math.cos(Math.toRadians(90)) da mal el resultado
+        if(grades == 0 || grades == 360) return 1;
+        else if(grades == 90 || grades == 270) return 0;
+        else if(grades == 180) return -1;
+        else return Math.cos(Math.toRadians(grades));
+    }
+
+    public static double getSin(int grades){
+        if(grades == 0 || grades == 180 || grades == 360) return 0;
+        else if(grades == 90) return 1;
+        else if(grades == 270) return -1;
+        else return Math.sin(Math.toRadians(grades));
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package meli.tmr.sistemasolar;
 
 import meli.tmr.sistemasolar.exceptions.SolarSystemException;
+import meli.tmr.sistemasolar.services.CalculatorUtil;
 import meli.tmr.sistemasolar.services.WeatherService;
 import meli.tmr.sistemasolar.models.*;
 import org.junit.Assert;
@@ -69,6 +70,16 @@ public class TestSolarSystem {
         SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
         Assert.assertEquals(2,reporte.getNumberOfDroughtDays(),0);
+    }
+
+    @Test
+    public void testCalculatorUtilCos90(){
+        Assert.assertEquals(0, CalculatorUtil.getCos(90),0);
+    }
+
+    @Test
+    public void testCalculatorUtilSin90(){
+        Assert.assertEquals(1, CalculatorUtil.getSin(90),0);
     }
 
 }
