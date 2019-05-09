@@ -35,12 +35,12 @@ public class CalculatorUtil {
         BigDecimal x3 = BigDecimal.valueOf(position3.getX()).setScale(4, RoundingMode.HALF_EVEN);
         BigDecimal y3 = BigDecimal.valueOf(position3.getY()).setScale(4, RoundingMode.HALF_EVEN);
         if((x1.equals(x2) && x2.equals(x3) && x1.equals(x3)) || (y1.equals(y2) && y2.equals(y3) && y1.equals(y3))) {
-            return true; // Si están en el mismo eje X o Y => están alineados. Hago esta validación para evitar cuentas
+            return true; // Si están en el mismo eje X o Y => están alineados. Hago esta validación para evitar hacer cuentas
         }
         BigDecimal result1 = (y2.subtract(y1)).divide(x2.subtract(x1), MathContext.DECIMAL128);
         BigDecimal result2 = (y3.subtract(y2)).divide(x3.subtract(x2), MathContext.DECIMAL128);
         BigDecimal finalResult = (result1.subtract(result2)).abs();
-        return finalResult.compareTo(new BigDecimal(0.1)) <= 0 // tolerancia a error numerico
+        return finalResult.compareTo(new BigDecimal(0.1)) <= 0; // tolerancia a error numerico hasta 2 decimales
     }
 
     protected boolean areInlineWithTheSun(int grade1, int grade2, int grade3){
@@ -48,13 +48,14 @@ public class CalculatorUtil {
     }
 
     protected boolean gradesAreInline(int grades1, int grades2){
-         return substract180(grades1) == substract180(grades2);
+         return substract180(grades1) == substract180(grades2); // uso == porque comparo enteros
     }
 
     private int substract180(int grades){
          return grades >= 180 ? (grades - 180) : grades;
     }
 
+    // Código obtenido de StackOverflow, según opinión de los usuarios es la forma más eficiente
     protected boolean sunIsInside(Position position1, Position position2, Position position3) {
         LOGGER.warn("Verificar si el sol se encuentra dentro del área formada por: ");
         LOGGER.info(Position.getPositionAsString(position1));
