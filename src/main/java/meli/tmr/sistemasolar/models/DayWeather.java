@@ -1,24 +1,29 @@
 package meli.tmr.sistemasolar.models;
 
 public class DayWeather {
-    private String weather;
-    private Integer day;
+    private String clima;
+    private Integer dia;
 
     public DayWeather(){}
 
-    public String getWeather() {
-        return weather;
+    public DayWeather(Integer dia, String clima){
+        setDia(dia);
+        setClima(clima);
     }
 
-    public void setWeather(String weather) {
-        this.weather = weather;
+    public String getClima() {
+        return clima;
     }
 
-    public Integer getDay() {
-        return day;
+    public void setClima(String clima) {
+        this.clima = clima;
     }
 
-    public void setDay(Integer day) {
-        this.day = day;
+    public Integer getDia() {
+        return dia;
+    }
+
+    public void setDia(Integer dia) {
+        this.dia = dia;
     }
 }

@@ -9,7 +9,7 @@ public class DayWeatherDAOImpl implements DayWeatherDAO  {
 
     @Override
     public DayWeather getByDay(Integer day) {
-        return null;
+        return new DayWeather(1,"lluvia");
     }
 
     @Override

@@ -88,7 +88,7 @@ public class TestSolarSystem {
     }
 
     @Test
-    public void areInline(){
+    public void testAreInline(){
         Assert.assertTrue(weatherService.getCalculatorUtil().areInline(new Position(-3, 10), new Position(-6,12), new Position(3,6)));
     }
 
