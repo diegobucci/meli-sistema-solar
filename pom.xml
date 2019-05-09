@@ -42,6 +42,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-java -->
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>1.70.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
