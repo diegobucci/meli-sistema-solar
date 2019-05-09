@@ -16,7 +16,7 @@ import java.util.Arrays;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class})
+@ContextConfiguration(classes = {AppTestConfig.class})
 public class TestSolarSystem {
 
     @Autowired

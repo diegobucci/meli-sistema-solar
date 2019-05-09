@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = {"meli.tmr.sistemasolar"})
-public class AppConfig  {
+public class AppTestConfig {
 }
