@@ -37,13 +37,13 @@ public class TestSolarSystem {
 //        Assert.assertEquals(2712.08950367, posicionDia1.getY(), 1);
 //    }
 
-
+/*
     @Test
     public void testSequiasEn1Anio() {
         SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,1);
         Assert.assertEquals("El valor esperado es 0", new Long(0), new Long(reporte.getNumberOfDroughtDays()));
-    }
+    }*/
 
 
     @Test
@@ -80,6 +80,16 @@ public class TestSolarSystem {
     @Test
     public void testCalculatorUtilSin90(){
         Assert.assertEquals(1, CalculatorUtil.getSin(90),0);
+    }
+
+    @Test
+    public void testCalculatorUtilCos80(){
+        Assert.assertEquals(0.17, CalculatorUtil.getCos(80),0.01);
+    }
+
+    @Test
+    public void areInline(){
+        Assert.assertTrue(weatherService.getCalculatorUtil().areInline(new Position(-3, 10), new Position(-6,12), new Position(3,6)));
     }
 
 }

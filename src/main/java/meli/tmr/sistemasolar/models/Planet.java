@@ -57,18 +57,14 @@ public abstract class Planet {
 
     private void rotateClockwise() {
         int actualGradeUpdated = getActualGrade() - getAngularVelocityInGradesPerDay();
-        if (actualGradeUpdated < 0) {
-            actualGradeUpdated += 360;
-        }
+        if (actualGradeUpdated < 0) actualGradeUpdated += 360;
         setActualGrade(actualGradeUpdated);
     }
 
     private void rotateAntiClockwise() {
         int actualGradeUpdated = getActualGrade() + getAngularVelocityInGradesPerDay();
-        if (actualGradeUpdated >= 360) {
-            actualGradeUpdated -= 360;
-            setActualGrade(actualGradeUpdated);
-        }
+        if (actualGradeUpdated >= 360) actualGradeUpdated -= 360;
+        setActualGrade(actualGradeUpdated);
     }
 
     /**********

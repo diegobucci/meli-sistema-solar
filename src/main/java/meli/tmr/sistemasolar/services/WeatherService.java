@@ -49,7 +49,7 @@ public class WeatherService {
                     report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
                     break;
                 case UNDEFINED:
-                    LOGGER.warn("No se detectó ningún clima");
+                    LOGGER.error("No se detectó ningún clima");
                     break;
             }
 
@@ -65,13 +65,11 @@ public class WeatherService {
 
         WeatherEnum clima = WeatherEnum.UNDEFINED;
         if(calculatorUtil.areInline(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())){
-            // Los planetas se encuentran alineados entre sí
             clima = WeatherEnum.OPTIMUM;
             if(calculatorUtil.areInlineWithTheSun(planet1.getActualGrade(), planet2.getActualGrade(), planet3.getActualGrade())){
                 clima = WeatherEnum.DROUGHT; // Si además están alineados con el sol el clima es SEQUIA
             }
         } else if(calculatorUtil.sunIsInside(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())) {
-            // Si no están alineados y forman un triangulo que contiene al sol entonces llueve
             clima = WeatherEnum.RAIN;
         }
         return clima;
@@ -83,6 +81,10 @@ public class WeatherService {
 
     private Integer getDays(int years){
         return years * DAYS_PER_YEAR;
+    }
+
+    public CalculatorUtil getCalculatorUtil(){
+        return this.calculatorUtil;
     }
 
 }
