@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 
 
 @Controller
@@ -17,7 +18,7 @@ public class WeatherControllerImpl implements WeatherController {
 
     @Override
     public ResponseEntity getWeather(String day) {
-        if(day == null || StringUtils.isEmpty(day)) return ResponseEntity.badRequest().body("Es necesario indicar el número del día para obtener el clima");
+        if(day == null || StringUtils.isEmpty(day)) return errorNoDayRequest();
         try {
             int dayNumber = Integer.parseInt(day);
             if(dayNumber < 1) return ResponseEntity.badRequest().body("El día debe ser un número positivo");
@@ -25,6 +26,15 @@ public class WeatherControllerImpl implements WeatherController {
         } catch (NumberFormatException e){
             return ResponseEntity.badRequest().body("El día debe estar expresado como un número positivo");
         }
+    }
+
+    @Override
+    public ResponseEntity handleMissingParams(MissingServletRequestParameterException ex) {
+        return errorNoDayRequest();
+    }
+
+    private ResponseEntity errorNoDayRequest(){
+        return ResponseEntity.badRequest().body("Es necesario indicar el número del día para obtener el clima");
     }
 
 }
