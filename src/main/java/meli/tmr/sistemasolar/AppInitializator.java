@@ -1,20 +1,6 @@
 package meli.tmr.sistemasolar;
 
-import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.BucketInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
 import meli.tmr.sistemasolar.models.*;
-import meli.tmr.sistemasolar.services.CalculatorUtil;
 import meli.tmr.sistemasolar.services.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,14 +16,11 @@ import java.util.stream.Collectors;
 @Component
 public class AppInitializator {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppInitializator.class);
-    private WeatherService weatherService;
-    private AppFirebase appFirebase;
 
     @Autowired
-    public AppInitializator(WeatherService weatherService, AppFirebase appFirebase){
-        this.weatherService = weatherService;
-        this.appFirebase = appFirebase;
-    }
+    private WeatherService weatherService;
+    @Autowired
+    private AppFirebase appFirebase;
 
     @PostConstruct
     private void init() throws IOException {

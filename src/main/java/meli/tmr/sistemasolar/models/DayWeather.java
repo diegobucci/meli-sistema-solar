@@ -1,14 +1,22 @@
 package meli.tmr.sistemasolar.models;
 
 public class DayWeather {
-    private String clima;
     private Integer dia;
+    private String clima;
 
     public DayWeather(){}
 
     public DayWeather(Integer dia, String clima){
         setDia(dia);
         setClima(clima);
+    }
+
+    public Integer getDia() {
+        return dia;
+    }
+
+    public void setDia(Integer dia) {
+        this.dia = dia;
     }
 
     public String getClima() {
@@ -19,11 +27,4 @@ public class DayWeather {
         this.clima = clima;
     }
 
-    public Integer getDia() {
-        return dia;
-    }
-
-    public void setDia(Integer dia) {
-        this.dia = dia;
-    }
 }

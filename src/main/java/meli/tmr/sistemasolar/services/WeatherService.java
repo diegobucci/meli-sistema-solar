@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class WeatherService {
+public  class WeatherService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
     public static final Integer DAYS_PER_YEAR = 365;
 
@@ -22,11 +22,12 @@ public class WeatherService {
     private DayWeatherDAO dayWeatherDAO;
 
     @Autowired
-    public WeatherService(CalculatorUtil calculatorUtil, WeatherReportDAO weatherReportDAO, DayWeatherDAO dayWeatherDAO) {
+    public WeatherService(CalculatorUtil calculatorUtil, WeatherReportDAO weatherReportDAO, DayWeatherDAO dayWeatherDAO){
         this.calculatorUtil = calculatorUtil;
         this.dayWeatherDAO = dayWeatherDAO;
         this.weatherReportDAO = weatherReportDAO;
     }
+
 
     public WeatherReport getWeatherReport(SolarSystem solarSystem, Integer years) {
         checkErrors(solarSystem, years);
@@ -38,7 +39,6 @@ public class WeatherService {
 
     private WeatherReport iterateDays(SolarSystem solarSystem, Integer days){
         WeatherReport report = new WeatherReport();
-//        for(LocalDate date = LocalDate.now(); date.isBefore(date.plusYears(10)); date = date.plusDays(1)){ // Demasiado procesamiento
         for (int dayNumber = 1; dayNumber <= days; dayNumber++) {
             LOGGER.info("Día numero: " + dayNumber);
             solarSystem.advanceOneDay();

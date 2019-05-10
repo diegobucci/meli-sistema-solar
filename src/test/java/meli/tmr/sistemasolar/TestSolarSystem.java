@@ -1,9 +1,9 @@
 package meli.tmr.sistemasolar;
 
 import meli.tmr.sistemasolar.exceptions.SolarSystemException;
+import meli.tmr.sistemasolar.models.*;
 import meli.tmr.sistemasolar.services.CalculatorUtil;
 import meli.tmr.sistemasolar.services.WeatherService;
-import meli.tmr.sistemasolar.models.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,6 @@ public class TestSolarSystem {
 
     @Autowired
     private WeatherService weatherService;
-
 
     @Test
     public void testGetReportMoreThan10YearsException() throws SolarSystemException {

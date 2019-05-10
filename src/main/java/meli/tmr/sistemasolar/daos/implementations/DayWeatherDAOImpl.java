@@ -7,7 +7,6 @@ import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
 import meli.tmr.sistemasolar.models.DayWeather;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -20,8 +19,6 @@ public class DayWeatherDAOImpl implements DayWeatherDAO  {
 
     public static final String COLLECTION_NAME = "weathers";
     public static final String DOCUMENT_NAME = "weather-";
-    @Autowired
-    private AppFirebase appFirebase;
 
     @Override
     public DayWeather getByDay(Integer day) {
@@ -46,6 +43,7 @@ public class DayWeatherDAOImpl implements DayWeatherDAO  {
         Map<String, Object> data = new HashMap<>();
         data.put("day", dayWeather.getDia());
         data.put("weather", dayWeather.getClima());
-        AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME+dayWeather.getDia()).set(data);
+        AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME+dayWeather.getDia()).set(data, SetOptions.merge());
     }
 }
+
