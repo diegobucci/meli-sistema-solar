@@ -2,15 +2,12 @@ package meli.tmr.sistemasolar.daos.implementations;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-import com.google.firebase.internal.NonNull;
-import com.google.firebase.tasks.OnFailureListener;
-import com.google.firebase.tasks.OnSuccessListener;
 import meli.tmr.sistemasolar.AppFirebase;
-import meli.tmr.sistemasolar.AppInitializator;
 import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.models.WeatherReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,6 +23,7 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
 
     @Override
     public WeatherReport get() {
+        LOGGER.info("Obtener reporte de la base de datos");
         WeatherReport weatherReport = new WeatherReport();
         try {
             CollectionReference reports = AppFirebase.getDB().collection(COLLECTION_NAME);
@@ -39,8 +37,10 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
                 weatherReport.setMaxPerimeterRain(Double.parseDouble(document.get("maximo-perimetro-lluvia").toString()));
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         } catch (ExecutionException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
         return weatherReport;
@@ -48,6 +48,7 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
 
     @Override
     public void save(WeatherReport weatherReport) {
+        LOGGER.info("Almacenar reporte en la base de datos: ", weatherReport);
         Map<String, Object> data = new HashMap<>();
         data.put("dias-de-sequia", weatherReport.getNumberOfDroughtDays());
         data.put("dias-optimos", weatherReport.getNumberOfOptimalDays());
