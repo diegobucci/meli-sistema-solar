@@ -1,10 +1,10 @@
 # Solar System Application
 API REST Application made with Java 8 & Spring Boot
 
-####Para correr el project de manera local:
+###Para correr el project de manera local:
 `mvn spring-boot:run`
 
-####Decisiones de diseño
+###Decisiones de diseño
 - Las coordenadas del sol son (0,0) para facilitar las cuentas al obtener las posiciones de los planetas que giran a su alrededor.
 - Consideré realizar la iteración de los 10 años manejando un local date de la siguiente forma:
 `for(LocalDate date = LocalDate.now(); date.isBefore(date.plusYears(10); date.plusDays(1)))`
