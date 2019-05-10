@@ -2,10 +2,15 @@ package meli.tmr.sistemasolar.daos.implementations;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.internal.NonNull;
+import com.google.firebase.tasks.OnFailureListener;
+import com.google.firebase.tasks.OnSuccessListener;
 import meli.tmr.sistemasolar.AppFirebase;
 import meli.tmr.sistemasolar.AppInitializator;
 import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.models.WeatherReport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class WeatherReportDAOImpl implements WeatherReportDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherReportDAOImpl.class);
 
     public static final String COLLECTION_NAME = "reports";
     public static final String DOCUMENT_NAME = "report";
@@ -42,13 +48,12 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
 
     @Override
     public void save(WeatherReport weatherReport) {
-        DocumentReference docRef = AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME);
         Map<String, Object> data = new HashMap<>();
         data.put("dias-de-sequia", weatherReport.getNumberOfDroughtDays());
         data.put("dias-optimos", weatherReport.getNumberOfOptimalDays());
         data.put("dias-lluviosos", weatherReport.getNumberOfRainyDays());
         data.put("dia-lluvia-maxima", weatherReport.getDayOfGreatestRain());
         data.put("maximo-perimetro-lluvia", weatherReport.getMaxPerimeterRain());
-        docRef.set(data);
+        AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME).set(data);
     }
 }
