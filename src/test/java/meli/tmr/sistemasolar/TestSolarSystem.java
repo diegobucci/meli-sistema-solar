@@ -70,7 +70,7 @@ public class TestSolarSystem {
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
         Assert.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0);
         Assert.assertEquals(1188 ,reporte.getNumberOfRainyDays(),0);
-        Assert.assertEquals(3630 ,reporte.getDayOfGreatestRain(),0);
+        Assert.assertEquals(72 ,reporte.getDayOfGreatestRain(),0);
         Assert.assertEquals(204 ,reporte.getNumberOfOptimalDays(),0);
     }
 

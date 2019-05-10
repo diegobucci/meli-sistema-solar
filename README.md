@@ -29,3 +29,8 @@ La finalidad era poder contemplar los años bisiestos. La desventaja era que dem
 - Cree la clase WeatherReport a fin de cumplir con el enunciado previo al BONUS. Este objeto cumple la función de ser un informe en el cual se escribe el resultado del pronóstico. Decidí almacenar este objeto en la base de datos de manera que se pueda consultar el reporte a través de un request:
 
         `GET -> http://..../reporteProximosDiezAnios`
+
+
+Base de datos: https://console.cloud.google.com/firestore/data?project=meli-sistema-solar
+
+No es necesario hacer un borrado de los datos en la inicialización de la app ya que la operación insert - update es la misma para este motor.

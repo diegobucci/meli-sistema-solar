@@ -1,5 +1,7 @@
 package meli.tmr.sistemasolar.services;
 
+import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
+import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.exceptions.YearsException;
 import meli.tmr.sistemasolar.exceptions.SolarSystemException;
 import meli.tmr.sistemasolar.models.*;
@@ -8,25 +10,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class WeatherService {
-
-    private CalculatorUtil calculatorUtil;
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
     public static final Integer DAYS_PER_YEAR = 365;
 
+    private CalculatorUtil calculatorUtil;
+    private WeatherReportDAO weatherReportDAO;
+    private DayWeatherDAO dayWeatherDAO;
+
     @Autowired
-    public WeatherService(CalculatorUtil calculatorUtil) {
+    public WeatherService(CalculatorUtil calculatorUtil, WeatherReportDAO weatherReportDAO, DayWeatherDAO dayWeatherDAO) {
         this.calculatorUtil = calculatorUtil;
+        this.dayWeatherDAO = dayWeatherDAO;
+        this.weatherReportDAO = weatherReportDAO;
     }
 
     public WeatherReport getWeatherReport(SolarSystem solarSystem, Integer years) {
         checkErrors(solarSystem, years);
         LOGGER.info("Obtener reporte para los próximos " + years + " años");
-        return iterateDays(solarSystem, getDays(years));
+        WeatherReport report = iterateDays(solarSystem, getDays(years));
+        weatherReportDAO.save(report);
+        return report;
     }
 
     private WeatherReport iterateDays(SolarSystem solarSystem, Integer days){
@@ -35,17 +42,23 @@ public class WeatherService {
         for (int dayNumber = 1; dayNumber <= days; dayNumber++) {
             LOGGER.info("Día numero: " + dayNumber);
             solarSystem.advanceOneDay();
-            completeReportForDay(report, solarSystem.getPlanets(), dayNumber);
+            WeatherEnum weather = completeReportForDay(report, solarSystem.getPlanets(), dayNumber);
+            dayWeatherDAO.save(new DayWeather(dayNumber, weather.getWeather()));
         }
         return report;
     }
 
-    private void completeReportForDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
-        switch(getWeather(planets)){
+    private WeatherEnum completeReportForDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
+        WeatherEnum weather = getWeather(planets);
+        switch(weather){
             case RAIN:
                 LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
                 report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
-                if(getPerimeter(planets) > report.getMaxPerimeterRain()) report.setDayOfGreatestRain(dayNumber);
+                double perimeter = getPerimeter(planets);
+                if(perimeter > report.getMaxPerimeterRain()) {
+                    report.setDayOfGreatestRain(dayNumber);
+                    report.setMaxPerimeterRain(perimeter);
+                }
                 break;
             case DROUGHT:
                 LOGGER.info("Se espera SEQUÍA para el día " + dayNumber);
@@ -56,9 +69,10 @@ public class WeatherService {
                 report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
                 break;
             case UNDEFINED:
-                LOGGER.error("No se detectó ningún clima");
+                LOGGER.warn("No se detectó ningún clima");
                 break;
         }
+        return weather;
     }
 
     private WeatherEnum getWeather(List<Planet> planets){

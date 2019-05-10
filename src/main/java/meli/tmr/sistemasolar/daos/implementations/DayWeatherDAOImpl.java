@@ -2,6 +2,7 @@ package meli.tmr.sistemasolar.daos.implementations;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import meli.tmr.sistemasolar.AppFirebase;
 import meli.tmr.sistemasolar.AppInitializator;
 import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
 import meli.tmr.sistemasolar.models.DayWeather;
@@ -14,15 +15,18 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class DayWeatherDAOImpl implements DayWeatherDAO  {
 
+    public static final String COLLECTION_NAME = "weathers";
+    public static final String DOCUMENT_NAME = "weather";
+
     @Override
     public DayWeather getByDay(Integer day) {
         DayWeather dayWeather = new DayWeather();
         try {
-            CollectionReference climas = AppInitializator.getDB().collection("climas");
-            Query query = climas.whereEqualTo("dia", day);
+            CollectionReference climas = AppFirebase.getDB().collection(COLLECTION_NAME);
+            Query query = climas.whereEqualTo("day", day);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
             for (DocumentSnapshot document : querySnapshot.get().getDocuments()) { // Debería haber un único valor
-                dayWeather = new DayWeather(Integer.parseInt(document.get("dia").toString()), document.get("clima").toString());
+                dayWeather = new DayWeather(Integer.parseInt(document.get("day").toString()), document.get("weather").toString());
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -34,10 +38,10 @@ public class DayWeatherDAOImpl implements DayWeatherDAO  {
 
     @Override
     public void save(DayWeather dayWeather) {
-        DocumentReference docRef = AppInitializator.getDB().collection("climas").document("dia-"+dayWeather.getDia());
+        DocumentReference docRef = AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME+dayWeather.getDia());
         Map<String, Object> data = new HashMap<>();
-        data.put("dia", dayWeather.getClima());
-        data.put("clima", dayWeather.getClima());
+        data.put("day", dayWeather.getDia());
+        data.put("weather", dayWeather.getClima());
         docRef.set(data);
     }
 }

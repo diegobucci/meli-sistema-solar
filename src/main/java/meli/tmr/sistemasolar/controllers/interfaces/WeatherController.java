@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/clima")
 public interface WeatherController {
 
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = {"", "/clima"}, method = RequestMethod.GET, produces = "application/json")
     ResponseEntity getWeather(@RequestParam(value = "dia") String day);
 
     @ExceptionHandler(MissingServletRequestParameterException.class)

@@ -1,7 +1,11 @@
 package meli.tmr.sistemasolar;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.BucketInfo;
 import com.google.cloud.storage.Storage;
@@ -19,7 +23,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,17 +31,18 @@ import java.util.stream.Collectors;
 public class AppInitializator {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppInitializator.class);
     private WeatherService weatherService;
-    private static Firestore db;
+    private AppFirebase appFirebase;
 
     @Autowired
-    public AppInitializator(WeatherService weatherService){
+    public AppInitializator(WeatherService weatherService, AppFirebase appFirebase){
         this.weatherService = weatherService;
+        this.appFirebase = appFirebase;
     }
 
     @PostConstruct
     private void init() throws IOException {
-        LOGGER.info("App initialization");
-        initBD();
+        LOGGER.info("App init");
+        appFirebase.initBD();
         LOGGER.info("Ejecutando prediccion del clima para los proximos 10 años");
         SolarSystem solarSystem = new SolarSystem(getPlanetsList());
         LOGGER.info("Sistema solar creado con los planetas: " + solarSystem.getPlanets().stream().map(p -> p.getCivilizationName()).collect(Collectors.joining(", ")));
@@ -46,21 +50,6 @@ public class AppInitializator {
         LOGGER.info("Predicción del clima terminada");
     }
 
-    public void initBD() throws IOException {
-        LOGGER.info("Inicializando base de datos");
-        InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("meli-sistema-solar-credentials.json");
-        GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(credentials)
-                .setProjectId("meli-sistema-solar")
-                .build();
-        FirebaseApp.initializeApp(options);
-        db = FirestoreClient.getFirestore();
-    }
-
-    public static Firestore getDB(){
-        return db;
-    }
 
     public static List<Planet> getPlanetsList(){
         Planet ferengi = new Planet("Ferengi", 1, 500 , true);
