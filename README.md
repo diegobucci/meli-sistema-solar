@@ -21,7 +21,8 @@ La finalidad era poder contemplar los años bisiestos. La desventaja era que dem
 	- position: Posición [Coordenadas (X,Y)]
 	- actualGrade: Grado actual [grados]
 
-	En un principio no contaba con los atributos position y actualGrade, ya que obtenía la posición del planeta a partir del número del día, pero la ecuación era más compleja ya que debía sumar dentro del cos y el sin la fase inicial del planeta (90 grados) más el número del día multiplicado por la velocidadAngular.  Por esta razón decidí agregar estos dos últimos atributos:
+	En un principio no contaba con los atributos position y actualGrade, ya que obtenía la posición del planeta a partir del número del día de manera dinámica. Pero la ecuación era más compleja ya que debía sumar dentro del cos y el sin la fase inicial del planeta (90 grados) más el número del día multiplicado por la velocidadAngular.  Por esta razón decidí agregar estos dos últimos atributos:
+		 
 		 - position: El planeta calcula sus coordenadas una única vez por día, independientemente de cuantas veces se consulte su posición.
 		 - actualGrade: Permite facilitar el cálculo de la posición y además se utiliza para verificar si los planetas estan alineados con el sol, verificando si todos los ángulos sin iguales o si son opuestos por el vértice (el sol).
 
