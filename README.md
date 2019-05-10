@@ -26,4 +26,6 @@ La finalidad era poder contemplar los años bisiestos. La desventaja era que dem
 		 - position: El planeta calcula sus coordenadas una única vez por día, independientemente de cuantas veces se consulte su posición.
 		 - actualGrade: Permite facilitar el cálculo de la posición y además se utiliza para verificar si los planetas estan alineados con el sol, verificando si todos los ángulos sin iguales o si son opuestos por el vértice (el sol).
 
-- Cree la clase WeatherReport a fin de cumplir con el enunciado previo al BONUS. Este objeto cumple la función de ser un informe en el cual se escribe el resultado del pronóstico. Sin embargo, al incoporar la base de datos esta clase ya no es necesaria para cumplir con los requerimientos así que podría eliminarse. 
+- Cree la clase WeatherReport a fin de cumplir con el enunciado previo al BONUS. Este objeto cumple la función de ser un informe en el cual se escribe el resultado del pronóstico. Decidí almacenar este objeto en la base de datos de manera que se pueda consultar el reporte a través de un request:
+
+        `GET -> http://..../reporteProximosDiezAnios`

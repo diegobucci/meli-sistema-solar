@@ -3,6 +3,7 @@ package meli.tmr.sistemasolar.controllers.implementations;
 import meli.tmr.sistemasolar.controllers.interfaces.WeatherController;
 import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
 
+import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ public class WeatherControllerImpl implements WeatherController {
 
     @Autowired
     private DayWeatherDAO dayWeatherDAO;
+
+    @Autowired
+    private WeatherReportDAO weatherReportDAO;
 
     @Override
     public ResponseEntity getWeather(String day) {
@@ -41,6 +45,11 @@ public class WeatherControllerImpl implements WeatherController {
     @Override
     public ResponseEntity handleMissingParams(MissingServletRequestParameterException ex) {
         return errorNoDayRequest();
+    }
+
+    @Override
+    public ResponseEntity getWeatherReportForTenYears() {
+        return ResponseEntity.ok().body(weatherReportDAO.get());
     }
 
 }

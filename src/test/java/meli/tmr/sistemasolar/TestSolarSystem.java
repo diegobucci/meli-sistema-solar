@@ -69,9 +69,9 @@ public class TestSolarSystem {
         SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
         Assert.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0);
-        Assert.assertEquals(1148 ,reporte.getNumberOfRainyDays(),0);
+        Assert.assertEquals(1188 ,reporte.getNumberOfRainyDays(),0);
         Assert.assertEquals(3630 ,reporte.getDayOfGreatestRain(),0);
-        Assert.assertEquals(122 ,reporte.getNumberOfOptimalDays(),0);
+        Assert.assertEquals(204 ,reporte.getNumberOfOptimalDays(),0);
     }
 
     @Test

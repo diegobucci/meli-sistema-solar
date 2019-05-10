@@ -14,4 +14,7 @@ public interface WeatherController {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     ResponseEntity handleMissingParams(MissingServletRequestParameterException ex);
+
+    @RequestMapping(value = {"/reporteProximosDiezAnios"}, method = RequestMethod.GET, produces = "application/json")
+    ResponseEntity getWeatherReportForTenYears();
 }
