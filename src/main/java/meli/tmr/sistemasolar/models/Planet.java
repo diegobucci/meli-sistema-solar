@@ -4,25 +4,14 @@ import meli.tmr.sistemasolar.services.CalculatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Planet {
+public class Planet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Planet.class);
 
     // Las coordenadas del sol son (0,0) y los planetas giran alrrededor de ella.
     private Integer angularVelocityInGradesPerDay;
     private Integer sunDistanceInKm;
     private Boolean movementClockwise;
     private String civilizationName;
-    private static final Logger LOGGER = LoggerFactory.getLogger(Planet.class);
-
-    /*********
-     * Previamente había pensado en calcular la posición a partir del día pero de esa forma se volvía
-     * más complejo el cálculo para obtener la posición. Ya que debía siempre indicar la fase inicial
-     * en la que se encontraba el planeta y además calcular los grados que se movió dependiendo del número del día.
-     * Además de que dependiendo de si el movimiento era en sentido horario o no, debía multiplicar
-     * al resultado del seno por (-1) para forzar el movimiento en sentido horario.
-     *
-     * Para simplificar este escenario, agregué un atributo posición que se va actualizando a medida que pasan los días.
-     * También tuve que agregar un atributo 'grado actual' para poder llevar a cabo la obteción de la posición.
-     */
     private Position position;
     private int actualGrade;
 

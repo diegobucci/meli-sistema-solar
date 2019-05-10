@@ -48,10 +48,10 @@ public class CalculatorUtil {
     }
 
     protected boolean gradesAreInline(int grades1, int grades2){
-         return substract180(grades1) == substract180(grades2); // uso == porque comparo enteros
+         return substract180If(grades1) == substract180If(grades2); // uso == porque comparo enteros
     }
 
-    private int substract180(int grades){
+    private int substract180If(int grades){
          return grades >= 180 ? (grades - 180) : grades;
     }
 
@@ -77,18 +77,18 @@ public class CalculatorUtil {
     }
     
     public static double getCos(int grades){
-        // Math.cos(Math.toRadians(90)) da mal el resultado
+        // Math.cos(Math.toRadians(90)) no devuelve un 0 exacto
         if(grades == 0 || grades == 360) return 1;
         else if(grades == 90 || grades == 270) return 0;
         else if(grades == 180) return -1;
-        else return Math.cos(Math.toRadians(grades));
+        return Math.cos(Math.toRadians(grades));
     }
 
     public static double getSin(int grades){
         if(grades == 0 || grades == 180 || grades == 360) return 0;
         else if(grades == 90) return 1;
         else if(grades == 270) return -1;
-        else return Math.sin(Math.toRadians(grades));
+        return Math.sin(Math.toRadians(grades));
     }
 
 

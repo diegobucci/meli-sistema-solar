@@ -25,7 +25,7 @@ public class TestSolarSystem {
 
     @Test
     public void testGetReportMoreThan10YearsException() throws SolarSystemException {
-        SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
         try {
             weatherService.getWeatherReport(solarSystem,99);
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class TestSolarSystem {
 
     @Test
     public void testGetReportLessThan1YearException() throws SolarSystemException {
-        SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
         try {
             weatherService.getWeatherReport(solarSystem,-10);
         } catch (Exception e) {
@@ -46,7 +46,9 @@ public class TestSolarSystem {
     @Test
     public void testCreateSolarSystemWithTwoPlanetsException() {
         try {
-            new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi()));
+            Planet planet1 = new Planet("planet1", 1,1,true);
+            Planet planet2 = new Planet("planet2", 1,1,true);
+            new SolarSystem(Arrays.asList(planet1, planet2));
         } catch (SolarSystemException e) {
             Assert.assertThat(e.getMessage(), is("Se esperan tres planetas"));
         }
@@ -55,8 +57,8 @@ public class TestSolarSystem {
     @Test
     public void testCreateSolarSystemWithFourPlanetsException() {
         try {
-            SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
-            solarSystem.addPlanet(new Vulcano());
+            SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
+            solarSystem.addPlanet( new Planet("planet4", 1,1,true));
         } catch (SolarSystemException e) {
             Assert.assertThat(e.getMessage(), is("El sistema solar ya contiene tres planetas"));
         }
@@ -64,8 +66,7 @@ public class TestSolarSystem {
 
     @Test
     public void testWeatherIn10Years()  {
-        // TODO estan bien los resultados?
-        SolarSystem solarSystem = new SolarSystem(Arrays.asList(new Betasoide(), new Ferengi(), new Vulcano()));
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
         Assert.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0);
         Assert.assertEquals(1148 ,reporte.getNumberOfRainyDays(),0);
