@@ -31,6 +31,6 @@ La finalidad era poder contemplar los años bisiestos. La desventaja era que dem
         `GET -> http://..../reporteProximosDiezAnios`
 
 
-Base de datos: https://console.cloud.google.com/firestore/data?project=meli-sistema-solar
+- La base de datos utilizada es Cloud Firestore. Es una base de datos NOSQL documental que almacena los datos en la nube de Google. Dado que el modelo es sencillo y pequeño no se justifica usar una bd referencial. Esta base de datos me permite almacenar los datos  de mi projecto en un espacio seguro y gratuito.  
 
-No es necesario hacer un borrado de los datos en la inicialización de la app ya que la operación insert - update es la misma para este motor.
+Además no es necesario hacer un borrado de los datos en la inicialización de la aplicación ya que la operación insert - update es la misma para este motor. Es decir que al insertar un documento, si ya existe lo actuliza y si no lo crea.
