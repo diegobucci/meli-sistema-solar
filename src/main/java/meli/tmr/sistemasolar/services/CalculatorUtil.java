@@ -13,11 +13,8 @@ import java.math.RoundingMode;
 public class CalculatorUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(CalculatorUtil.class);
 
-     protected double getPerimeter(Position position1, Position position2, Position position3) {
-         LOGGER.warn("Obtener perimetro del triangulo formado por: ");
-         LOGGER.info(Position.getPositionAsString(position1));
-         LOGGER.info(Position.getPositionAsString(position2));
-         LOGGER.info(Position.getPositionAsString(position3));
+     public double getPerimeter(Position position1, Position position2, Position position3) {
+         LOGGER.info("Obtener perimetro del triangulo formado por:" + Position.getPositionAsString(position1) + Position.getPositionAsString(position2) + Position.getPositionAsString(position3));
         return distanceBetween(position1, position2) + distanceBetween(position2, position3) + distanceBetween(position3, position1);
     }
 
@@ -48,19 +45,15 @@ public class CalculatorUtil {
     }
 
     protected boolean gradesAreInline(int grades1, int grades2){
-         return substract180If(grades1) == substract180If(grades2); // uso == porque comparo enteros
+         return substract180If(grades1) == substract180If(grades2);
     }
 
     private int substract180If(int grades){
          return grades >= 180 ? (grades - 180) : grades;
     }
 
-    // Código obtenido de StackOverflow, según opinión de los usuarios es la forma más eficiente
     protected boolean sunIsInside(Position position1, Position position2, Position position3) {
-        LOGGER.warn("Verificar si el sol se encuentra dentro del área formada por: ");
-        LOGGER.info(Position.getPositionAsString(position1));
-        LOGGER.info(Position.getPositionAsString(position2));
-        LOGGER.info(Position.getPositionAsString(position3));
+        LOGGER.info("Verificar si el sol se encuentra dentro del área formada por: "+ Position.getPositionAsString(position1) + Position.getPositionAsString(position2) + Position.getPositionAsString(position3));
         Position sunPosition = new Position(0,0);
         double d1 = sign(sunPosition, position1, position2);
         double d2 = sign(sunPosition, position2, position3);

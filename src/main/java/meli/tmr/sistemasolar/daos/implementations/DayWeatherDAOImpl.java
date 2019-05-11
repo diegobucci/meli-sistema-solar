@@ -11,28 +11,33 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class DayWeatherDAOImpl implements DayWeatherDAO  {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DayWeatherDAOImpl.class);
 
-    public static final String COLLECTION_NAME = "weathers";
-    public static final String DOCUMENT_NAME = "weather-";
+    private static final String COLLECTION_NAME = "weathers";
+    private static final String DOCUMENT_NAME = "weather-";
+    private static final String DAY = "day";
+    private static final String WEATHER = "weather";
 
     @Override
     public DayWeather getByDay(Integer day) {
+
+        LOGGER.info("Lectura de la bbdd para el dia: " + day);
         DayWeather dayWeather = new DayWeather();
         try {
             CollectionReference weathers = AppFirebase.getDB().collection(COLLECTION_NAME);
-            Query query = weathers.whereEqualTo("day", day);
+            Query query = weathers.whereEqualTo(DAY, day);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
-            for (DocumentSnapshot document : querySnapshot.get().getDocuments()) { // Debería haber un único valor
-                dayWeather = new DayWeather(Integer.parseInt(document.get("day").toString()), document.get("weather").toString());
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            querySnapshot.get().getDocuments().forEach(document -> {
+                dayWeather.setDia(Integer.parseInt(Objects.requireNonNull(document.get(DAY)).toString()));
+                dayWeather.setClima(Objects.requireNonNull(document.get(WEATHER)).toString());
+            });
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return dayWeather;
@@ -41,9 +46,9 @@ public class DayWeatherDAOImpl implements DayWeatherDAO  {
     @Override
     public void save(DayWeather dayWeather) {
         Map<String, Object> data = new HashMap<>();
-        data.put("day", dayWeather.getDia());
-        data.put("weather", dayWeather.getClima());
-        AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME+dayWeather.getDia()).set(data, SetOptions.merge());
+        data.put(DAY, dayWeather.getDia());
+        data.put(WEATHER, dayWeather.getClima());
+        AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME +dayWeather.getDia()).set(data, SetOptions.merge());
     }
 }
 

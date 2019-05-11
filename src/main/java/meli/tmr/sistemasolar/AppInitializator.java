@@ -27,14 +27,18 @@ public class AppInitializator {
         LOGGER.info("App init");
         appFirebase.initBD();
         LOGGER.info("Ejecutando prediccion del clima para los proximos 10 años");
-        SolarSystem solarSystem = new SolarSystem(getPlanetsList());
-        LOGGER.info("Sistema solar creado con los planetas: " + solarSystem.getPlanets().stream().map(p -> p.getCivilizationName()).collect(Collectors.joining(", ")));
+        SolarSystem solarSystem = new SolarSystem(buildPlanetList());
+        LOGGER.info("Sistema solar creado con los planetas: " + getAllPlanets(solarSystem));
         weatherService.getWeatherReport(solarSystem,10);
         LOGGER.info("Predicción del clima terminada");
     }
 
+    private String getAllPlanets(SolarSystem solarSystem) {
+        return solarSystem.getPlanets().stream().map(Planet::getCivilizationName).collect(Collectors.joining(", "));
+    }
 
-    public static List<Planet> getPlanetsList(){
+
+    public static List<Planet> buildPlanetList(){
         Planet ferengi = new Planet("Ferengi", 1, 500 , true);
         Planet betasoide = new Planet("Betasoide", 3, 2000 , true );
         Planet vulcano = new Planet("Vulcano", 5, 1000, false);

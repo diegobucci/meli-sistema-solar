@@ -31,12 +31,11 @@ public class Planet {
         LOGGER.info(getCivilizationName() + " inicializado girando en órbita");
     }
 
-    public void advanceOneDay() {
-        LOGGER.warn("Se produce movimiento de " + getCivilizationName() + " en sentido " + (getMovementClockwise() ? "horario" : "anti horario"));
+    protected void advanceOneDay() {
+        LOGGER.info("Se produce movimiento de " + getCivilizationName() + " en sentido " + (getMovementClockwise() ? "horario" : "anti horario"));
         rotate();
         updatePosition();
-        LOGGER.warn("Posición de " + getCivilizationName() + " actualizada");
-        LOGGER.warn("Grado actual de " + getCivilizationName() + ": " + getActualGrade());
+        LOGGER.info("Posición de " + getCivilizationName() + " actualizada");
     }
 
     private void rotate() {

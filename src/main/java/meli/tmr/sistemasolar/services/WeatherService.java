@@ -17,15 +17,15 @@ public  class WeatherService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
     public static final Integer DAYS_PER_YEAR = 365;
 
-    private CalculatorUtil calculatorUtil;
     private WeatherReportDAO weatherReportDAO;
     private DayWeatherDAO dayWeatherDAO;
+    private WeatherTypeResolver weatherTypeResolver;
 
     @Autowired
-    public WeatherService(CalculatorUtil calculatorUtil, WeatherReportDAO weatherReportDAO, DayWeatherDAO dayWeatherDAO){
-        this.calculatorUtil = calculatorUtil;
+    public WeatherService(WeatherReportDAO weatherReportDAO, DayWeatherDAO dayWeatherDAO, WeatherTypeResolver weatherTypeResolver){
         this.dayWeatherDAO = dayWeatherDAO;
         this.weatherReportDAO = weatherReportDAO;
+        this.weatherTypeResolver = weatherTypeResolver;
     }
 
 
@@ -42,59 +42,15 @@ public  class WeatherService {
         for (int dayNumber = 1; dayNumber <= days; dayNumber++) {
             LOGGER.info("Día numero: " + dayNumber);
             solarSystem.advanceOneDay();
-            WeatherEnum weather = completeReportForDay(report, solarSystem.getPlanets(), dayNumber);
-            dayWeatherDAO.save(new DayWeather(dayNumber, weather.getWeather()));
+            updateReportAndSaveDay(report, solarSystem.getPlanets(), dayNumber);
         }
         return report;
     }
 
-    private WeatherEnum completeReportForDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
-        WeatherEnum weather = getWeather(planets);
-        switch(weather){
-            case RAIN:
-                LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
-                report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
-                double perimeter = getPerimeter(planets);
-                if(perimeter > report.getMaxPerimeterRain()) {
-                    report.setDayOfGreatestRain(dayNumber);
-                    report.setMaxPerimeterRain(perimeter);
-                }
-                break;
-            case DROUGHT:
-                LOGGER.info("Se espera SEQUÍA para el día " + dayNumber);
-                report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
-                break;
-            case OPTIMUM:
-                LOGGER.info("Se espera un clima ÓPTIMO para el día " + dayNumber);
-                report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
-                break;
-            case UNDEFINED:
-                LOGGER.warn("No se detectó ningún clima");
-                break;
-        }
-        return weather;
-    }
-
-    private WeatherEnum getWeather(List<Planet> planets){
-        // Previamente se validó el tamaño del array así que no debería lanzarse la excepción IndexOutOfBounds
-        Planet planet1 = planets.get(0);
-        Planet planet2 = planets.get(1);
-        Planet planet3 = planets.get(2);
-
-        WeatherEnum clima = WeatherEnum.UNDEFINED;
-        if(calculatorUtil.areInline(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())){
-            clima = WeatherEnum.OPTIMUM;
-            if(calculatorUtil.areInlineWithTheSun(planet1.getActualGrade(), planet2.getActualGrade(), planet3.getActualGrade())){
-                clima = WeatherEnum.DROUGHT; // Si además están alineados con el sol el clima es SEQUIA
-            }
-        } else if(calculatorUtil.sunIsInside(planet1.getPosition(), planet2.getPosition(), planet3.getPosition())) {
-            clima = WeatherEnum.RAIN;
-        }
-        return clima;
-    }
-
-    private double getPerimeter(List<Planet> planets) {
-        return this.calculatorUtil.getPerimeter(planets.get(0).getPosition(), planets.get(1).getPosition(), planets.get(2).getPosition());
+    private void updateReportAndSaveDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
+        Weather weather = weatherTypeResolver.getWeatherType(planets);
+        weather.updateReport(report, dayNumber);
+        dayWeatherDAO.save(new DayWeather(dayNumber, weather.getWeatherDescription()));
     }
 
     private void checkErrors(SolarSystem solarSystem, Integer years){
@@ -105,9 +61,4 @@ public  class WeatherService {
     private Integer getDays(int years){
         return years * DAYS_PER_YEAR;
     }
-
-    public CalculatorUtil getCalculatorUtil(){
-        return this.calculatorUtil;
-    }
-
 }

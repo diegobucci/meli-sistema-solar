@@ -11,14 +11,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class WeatherReportDAOImpl implements WeatherReportDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherReportDAOImpl.class);
 
-    public static final String COLLECTION_NAME = "reports";
-    public static final String DOCUMENT_NAME = "report";
+    private static final String COLLECTION_NAME = "reports";
+    private static final String DOCUMENT_NAME = "report";
 
     @Override
     public WeatherReport get() {
@@ -28,17 +29,14 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
             CollectionReference reports = AppFirebase.getDB().collection(COLLECTION_NAME);
             Query query = reports.limit(20);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
-            for (DocumentSnapshot document : querySnapshot.get().getDocuments()) { // Debería haber un único valor
-                weatherReport.setNumberOfDroughtDays(Integer.parseInt(document.get("dias-de-sequia").toString()));
-                weatherReport.setNumberOfOptimalDays(Integer.parseInt(document.get("dias-optimos").toString()));
-                weatherReport.setNumberOfRainyDays(Integer.parseInt(document.get("dias-lluviosos").toString()));
-                weatherReport.setDayOfGreatestRain(Integer.parseInt(document.get("dia-lluvia-maxima").toString()));
-                weatherReport.setMaxPerimeterRain(Double.parseDouble(document.get("maximo-perimetro-lluvia").toString()));
-            }
-        } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage());
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            querySnapshot.get().getDocuments().forEach(document -> { // Debería haber un único valor
+                weatherReport.setNumberOfDroughtDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-de-sequia")).toString()));
+                weatherReport.setNumberOfOptimalDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-optimos")).toString()));
+                weatherReport.setNumberOfRainyDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-lluviosos")).toString()));
+                weatherReport.setDayOfGreatestRain(Integer.parseInt(Objects.requireNonNull(document.get("dia-lluvia-maxima")).toString()));
+                weatherReport.setMaxPerimeterRain(Double.parseDouble(Objects.requireNonNull(document.get("maximo-perimetro-lluvia")).toString()));
+            });
+        } catch (InterruptedException | ExecutionException e) {
             LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
@@ -47,7 +45,7 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
 
     @Override
     public void save(WeatherReport weatherReport) {
-        LOGGER.info("Almacenar reporte en la base de datos: ", weatherReport);
+        LOGGER.info("Almacenar reporte en la base de datos: " + weatherReport);
         Map<String, Object> data = new HashMap<>();
         data.put("dias-de-sequia", weatherReport.getNumberOfDroughtDays());
         data.put("dias-optimos", weatherReport.getNumberOfOptimalDays());

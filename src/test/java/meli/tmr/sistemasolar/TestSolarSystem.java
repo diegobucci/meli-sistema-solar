@@ -21,10 +21,12 @@ public class TestSolarSystem {
 
     @Autowired
     private WeatherService weatherService;
+    @Autowired
+    private CalculatorUtil calculatorUtil;
 
     @Test
     public void testGetReportMoreThan10YearsException() throws SolarSystemException {
-        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());
         try {
             weatherService.getWeatherReport(solarSystem,99);
         } catch (Exception e) {
@@ -34,7 +36,7 @@ public class TestSolarSystem {
 
     @Test
     public void testGetReportLessThan1YearException() throws SolarSystemException {
-        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());
         try {
             weatherService.getWeatherReport(solarSystem,-10);
         } catch (Exception e) {
@@ -56,7 +58,7 @@ public class TestSolarSystem {
     @Test
     public void testCreateSolarSystemWithFourPlanetsException() {
         try {
-            SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
+            SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());
             solarSystem.addPlanet( new Planet("planet4", 1,1,true));
         } catch (SolarSystemException e) {
             Assert.assertThat(e.getMessage(), is("El sistema solar ya contiene tres planetas"));
@@ -65,7 +67,7 @@ public class TestSolarSystem {
 
     @Test
     public void testWeatherIn10Years()  {
-        SolarSystem solarSystem = new SolarSystem(AppInitializator.getPlanetsList());
+        SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
         Assert.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0);
         Assert.assertEquals(1188 ,reporte.getNumberOfRainyDays(),0);
@@ -90,7 +92,7 @@ public class TestSolarSystem {
 
     @Test
     public void testAreInline(){
-        Assert.assertTrue(weatherService.getCalculatorUtil().areInline(new Position(-3, 10), new Position(-6,12), new Position(3,6)));
+        Assert.assertTrue(calculatorUtil.areInline(new Position(-3, 10), new Position(-6,12), new Position(3,6)));
     }
 
 }
