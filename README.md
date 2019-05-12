@@ -15,11 +15,14 @@ Una vez deployado, es posible realizar las siguientes consultas:
 
 #### Decisiones de diseño
 - Las coordenadas del sol son (0,0) para facilitar las cuentas al obtener las posiciones de los planetas que giran a su alrededor.
+- Inicialmente los planetas se encuentran a 90 grados con respecto al sol.
 - Consideré realizar la iteración de los 10 años manejando un local date de la siguiente forma:
-`for(LocalDate date = LocalDate.now(); date.isBefore(date.plusYears(10); date.plusDays(1)))`
-La finalidad era poder contemplar los años bisiestos. La desventaja era que demoraba mucho tiempo en recorrer el ciclo. Por lo tanto, a fin de cumplir con los fines prácticos de la evaluación contemplé a todos los años con 365 días.  De esta manera el for simplemente itera con un contador (int).
 
-- También considere crear tres clases que hereden de Planet, una para cada tipo de civilización. La ventaja era que permitía asignar los valores a los atributos simplemente instanciando la clase necesaria. Sin embargo no considero que este argumento alcance para justificar la creación de tres clases más ya que es utilizar una herramienta tan fuerte como la herencia y no hay comportamiento diferenciado entre las distintas civilizaciones más allá del valor de sus atributos. Por ejemplo, así hubiese quedado la clase Ferengi:
+`for(LocalDate date = LocalDate.now(); date.isBefore(date.plusYears(10); date.plusDays(1)))`
+
+   La finalidad era poder contemplar los años bisiestos. La desventaja era que demoraba mucho tiempo en recorrer el ciclo. Por lo tanto, a fin de cumplir con los fines prácticos de la evaluación contemplé a todos los años con 365 días.  De esta manera el for simplemente itera con un contador (int).
+
+- Por otro lado considere crear tres clases que hereden de Planet, una para cada tipo de civilización. La ventaja era que permitía asignar los valores a los atributos simplemente instanciando la clase necesaria. Sin embargo no considero que este argumento alcance para justificar la creación de tres clases más ya que es utilizar una herramienta tan fuerte como la herencia y no hay comportamiento diferenciado entre las distintas civilizaciones más allá del valor de sus atributos. Por ejemplo, así hubiese quedado la clase Ferengi:
 `    public Ferengi() { super("Ferengi", 1, 500 , true );    }`
 
 - Finalmente la clase Planet quedó definida con los siguientes atributos:

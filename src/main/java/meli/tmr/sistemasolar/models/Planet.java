@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 public class Planet {
     private static final Logger LOGGER = LoggerFactory.getLogger(Planet.class);
 
-    // Las coordenadas del sol son (0,0) y los planetas giran alrrededor de ella.
     private Integer angularVelocityInGradesPerDay;
     private Integer sunDistanceInKm;
     private Boolean movementClockwise;
