@@ -4,7 +4,8 @@ API REST Application made with Java 8 & Spring Boot
 #### Correr el project de manera local:
 Levantar la aplicacion con el comando:
 `mvn spring-boot:run`
-Se realizara la prediccion del clima para los proximos anios, almacenando los resultados en una base de datos que luego podra ser consultada.
+
+Se realizara la prediccion del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podra ser consultada a traves de distintos request expuestos por la API.
 
 #### End Points
 Una vez deployado, es posible realizar las siguientes consultas:
