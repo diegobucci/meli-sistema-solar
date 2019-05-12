@@ -1,6 +1,7 @@
 package meli.tmr.sistemasolar;
 
-import meli.tmr.sistemasolar.models.*;
+import meli.tmr.sistemasolar.models.Planet;
+import meli.tmr.sistemasolar.models.SolarSystem;
 import meli.tmr.sistemasolar.services.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

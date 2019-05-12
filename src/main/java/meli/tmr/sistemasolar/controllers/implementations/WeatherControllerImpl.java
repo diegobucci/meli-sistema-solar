@@ -2,7 +2,6 @@ package meli.tmr.sistemasolar.controllers.implementations;
 
 import meli.tmr.sistemasolar.controllers.interfaces.WeatherController;
 import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
-
 import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.exceptions.NoWeatherFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

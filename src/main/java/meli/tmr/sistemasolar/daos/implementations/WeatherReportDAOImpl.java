@@ -1,7 +1,9 @@
 package meli.tmr.sistemasolar.daos.implementations;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QuerySnapshot;
 import meli.tmr.sistemasolar.AppFirebase;
 import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.models.WeatherReport;
