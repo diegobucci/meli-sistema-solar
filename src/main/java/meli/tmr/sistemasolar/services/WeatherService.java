@@ -28,7 +28,6 @@ public  class WeatherService {
         this.weatherTypeResolver = weatherTypeResolver;
     }
 
-
     public WeatherReport getWeatherReport(SolarSystem solarSystem, Integer years) {
         checkErrors(solarSystem, years);
         LOGGER.info("Obtener reporte para los próximos " + years + " años");
@@ -40,7 +39,7 @@ public  class WeatherService {
     private WeatherReport iterateDays(SolarSystem solarSystem, Integer days){
         WeatherReport report = new WeatherReport();
         for (int dayNumber = 1; dayNumber <= days; dayNumber++) {
-            LOGGER.info("Día numero: " + dayNumber);
+            LOGGER.info("Se produce la prediccion del clima para el dia numero: " + dayNumber);
             solarSystem.advanceOneDay();
             updateReportAndSaveDay(report, solarSystem.getPlanets(), dayNumber);
         }

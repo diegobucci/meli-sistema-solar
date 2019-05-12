@@ -18,7 +18,7 @@ public class CalculatorUtil {
         return distanceBetween(position1, position2) + distanceBetween(position2, position3) + distanceBetween(position3, position1);
     }
 
-    protected double distanceBetween(Position position1, Position position2) {
+    private double distanceBetween(Position position1, Position position2) {
         double xDifference = position1.getX() - position2.getX(); // No importa que sea negativo porque lo elevo al cuadrado después
         double yDifference = position1.getY() - position2.getY();
         return Math.sqrt(Math.pow(xDifference,2) + Math.pow(yDifference,2));
@@ -40,7 +40,7 @@ public class CalculatorUtil {
         return finalResult.compareTo(new BigDecimal(0.1)) <= 0; // tolerancia a error numerico hasta 2 decimales
     }
 
-    protected boolean areInlineWithTheSun(int grade1, int grade2, int grade3){
+    boolean areInlineWithTheSun(int grade1, int grade2, int grade3){
         return gradesAreInline(grade1, grade2) && gradesAreInline(grade2, grade3) && gradesAreInline(grade3, grade1);
     }
 
@@ -52,7 +52,7 @@ public class CalculatorUtil {
          return grades >= 180 ? (grades - 180) : grades;
     }
 
-    protected boolean sunIsInside(Position position1, Position position2, Position position3) {
+    boolean sunIsInside(Position position1, Position position2, Position position3) {
         LOGGER.info("Verificar si el sol se encuentra dentro del área formada por: "+ Position.getPositionAsString(position1) + Position.getPositionAsString(position2) + Position.getPositionAsString(position3));
         Position sunPosition = new Position(0,0);
         double d1 = sign(sunPosition, position1, position2);

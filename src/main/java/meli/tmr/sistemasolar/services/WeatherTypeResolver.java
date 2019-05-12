@@ -23,7 +23,7 @@ public class WeatherTypeResolver {
         this.calculatorUtil = calculatorUtil;
     }
 
-    public Weather getWeatherType(List<Planet> planets){
+    Weather getWeatherType(List<Planet> planets){
         // Previamente se validó el tamaño del array así que no debería lanzarse la excepción IndexOutOfBounds
         Planet planet1 = planets.get(0);
         Planet planet2 = planets.get(1);

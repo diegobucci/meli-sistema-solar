@@ -6,13 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class DroughtWeather extends Weather {
 
+    private static final String SEQUIA = "sequia";
+
     @Autowired
     public DroughtWeather() {
-        setWeatherDescription("sequia");
+        setWeatherDescription(SEQUIA);
     }
 
     @Override
     public void updateReport(WeatherReport report, Integer dayNumber) {
+        LOGGER.info("Se espera un clima de " + SEQUIA + " para el dia " + dayNumber);
         report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
     }
 }

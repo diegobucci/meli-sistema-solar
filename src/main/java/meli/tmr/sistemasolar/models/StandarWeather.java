@@ -13,6 +13,6 @@ public class StandarWeather extends Weather {
 
     @Override
     public void updateReport(WeatherReport weatherReport, Integer dayNumber) {
-
+        LOGGER.warn("No se detecto ningun clima para el dia " + dayNumber);
     }
 }

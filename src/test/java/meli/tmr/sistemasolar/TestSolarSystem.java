@@ -56,6 +56,23 @@ public class TestSolarSystem {
     }
 
     @Test
+    public void testAddPlanetsToSolarSystemException() {
+        try {
+            Planet planet1 = new Planet("planet1", 1,1,true);
+            Planet planet2 = new Planet("planet2", 1,1,true);
+            Planet planet3 = new Planet("planet3", 1,1,true);
+            Planet planet4 = new Planet("planet4", 1,1,true);
+            SolarSystem solarSystem = new SolarSystem();
+            solarSystem.addPlanet(planet1);
+            solarSystem.addPlanet(planet2);
+            solarSystem.addPlanet(planet3);
+            solarSystem.addPlanet(planet4);
+        } catch (SolarSystemException e) {
+            Assert.assertThat(e.getMessage(), is("El sistema solar ya contiene tres planetas"));
+        }
+    }
+
+    @Test
     public void testCreateSolarSystemWithFourPlanetsException() {
         try {
             SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());

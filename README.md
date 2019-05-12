@@ -1,8 +1,17 @@
 # Solar System Application
 API REST Application made with Java 8 & Spring Boot
 
-#### Para correr el project de manera local:
+#### Correr el project de manera local:
+Levantar la aplicacion con el comando:
 `mvn spring-boot:run`
+Se realizara la prediccion del clima para los proximos anios, almacenando los resultados en una base de datos que luego podra ser consultada.
+
+#### End Points
+Una vez deployado, es posible realizar las siguientes consultas:
+- Obtener el clima para un dia especifico
+    - `localhost:8080/clima?dia=<diaConsultado>`
+- Obtener la cantidad de dias de sequia, de dias optimos, de dias de lluvia y el numero del dia que mas llovio.
+    - `localhost:8080/reporteProximosDiezAnios`
 
 #### Decisiones de diseño
 - Las coordenadas del sol son (0,0) para facilitar las cuentas al obtener las posiciones de los planetas que giran a su alrededor.
@@ -32,5 +41,8 @@ La finalidad era poder contemplar los años bisiestos. La desventaja era que dem
 
 
 - La base de datos utilizada es Cloud Firestore. Es una base de datos NOSQL documental que almacena los datos en la nube de Google. Dado que el modelo es sencillo y pequeño no se justifica usar una bd referencial. Esta base de datos me permite almacenar los datos  de mi projecto en un espacio seguro y gratuito.  
-
 Además no es necesario hacer un borrado de los datos en la inicialización de la aplicación ya que la operación insert - update es la misma para este motor. Es decir que al insertar un documento, si ya existe lo actuliza y si no lo crea.
+
+- Utilice el patron Template Method para actualizar el reporte dia a dia. La super clase es Weather, que contiene el metodo `updateReport(WeatherReport report, Integer dayNumber)`
+
+    De ella heredan varias clases, una por cada clima, y todas tienen su propia implementacion del metodo. De modo que es posible tratar a todos los climas de manera polimorfica para que cada uno complete el reporte como le corresponda.

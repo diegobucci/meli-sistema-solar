@@ -1,6 +1,5 @@
 package meli.tmr.sistemasolar.models;
 
-import com.google.api.client.util.Lists;
 import meli.tmr.sistemasolar.exceptions.SolarSystemException;
 
 import java.util.ArrayList;

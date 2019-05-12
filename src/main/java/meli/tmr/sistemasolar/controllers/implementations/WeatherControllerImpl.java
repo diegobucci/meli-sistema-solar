@@ -4,6 +4,7 @@ import meli.tmr.sistemasolar.controllers.interfaces.WeatherController;
 import meli.tmr.sistemasolar.daos.interfaces.DayWeatherDAO;
 
 import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
+import meli.tmr.sistemasolar.exceptions.NoWeatherFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,14 @@ public class WeatherControllerImpl implements WeatherController {
     public ResponseEntity getWeather(String day) {
         ResponseEntity responseError = validateErrorsGetWeather(day);
         if(responseError != null) return responseError;
-        return ResponseEntity.ok().body(dayWeatherDAO.getByDay(Integer.parseInt(day)));
+        try {
+            return ResponseEntity.ok().body(dayWeatherDAO.getByDay(Integer.parseInt(day)));
+        } catch (NoWeatherFoundException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     private ResponseEntity validateErrorsGetWeather(String day){
-
         //TODO: validar dia para mayores a 10 anios
         if(day == null || StringUtils.isEmpty(day)) return errorNoDayRequest();
         try {

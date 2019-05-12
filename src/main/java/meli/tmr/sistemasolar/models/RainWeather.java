@@ -9,18 +9,19 @@ import java.util.List;
 @Component
 public class RainWeather extends Weather {
 
+    public static final String LLUVIA = "lluvia";
     private CalculatorUtil calculatorUtil;
     private List<Planet> planets;
 
     @Autowired
     public RainWeather(CalculatorUtil calculatorUtil) {
         this.calculatorUtil = calculatorUtil;
-        setWeatherDescription("lluvia");
+        setWeatherDescription(LLUVIA);
     }
 
     @Override
     public void updateReport(WeatherReport report, Integer dayNumber){
-//        LOGGER.info("Se espera LLUVIA para el día " + dayNumber);
+        LOGGER.info("Se espera " + LLUVIA + " para el día " + dayNumber);
         report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
         double perimeter = getPerimeter(planets);
         if(perimeter > report.getMaxPerimeterRain()) {

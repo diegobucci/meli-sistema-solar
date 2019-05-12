@@ -1,9 +1,10 @@
 package meli.tmr.sistemasolar.models;
 
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Component
 public abstract class Weather {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Weather.class);
 
     private String weatherDescription;
 
