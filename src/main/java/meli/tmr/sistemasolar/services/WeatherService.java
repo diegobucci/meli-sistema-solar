@@ -47,6 +47,9 @@ public  class WeatherService {
     }
 
     private void updateReportAndSaveDay(WeatherReport report, List<Planet> planets, Integer dayNumber){
+        if(weatherTypeResolver == null){
+            int i = 1;
+        }
         Weather weather = weatherTypeResolver.getWeatherType(planets);
         weather.updateReport(report, dayNumber);
         dayWeatherDAO.save(new DayWeather(dayNumber, weather.getWeatherDescription()));
@@ -60,4 +63,5 @@ public  class WeatherService {
     private Integer getDays(int years){
         return years * DAYS_PER_YEAR;
     }
+
 }

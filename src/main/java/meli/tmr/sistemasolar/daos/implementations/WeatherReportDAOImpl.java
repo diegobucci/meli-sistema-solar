@@ -9,14 +9,14 @@ import meli.tmr.sistemasolar.daos.interfaces.WeatherReportDAO;
 import meli.tmr.sistemasolar.models.WeatherReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@Service
+@Component
 public class WeatherReportDAOImpl implements WeatherReportDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherReportDAOImpl.class);
 

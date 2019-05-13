@@ -14,9 +14,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 @Controller
 public class WeatherControllerImpl implements WeatherController {
 
-    private static final String NUMERO_POSITIVO_ERROR = "El día debe ser un número positivo";
-    private static final String EL_FORMATO_ES_INCORRECTO = "El día debe estar expresado como un número, el formato es incorrecto";
-    private static final String DIA_PARA_OBTENER_EL_CLIMA_ERROR = "Es necesario indicar el número del día para obtener el clima";
+    public static final String NUMERO_POSITIVO_ERROR = "El día debe ser un número positivo";
+    public static final String EL_FORMATO_ES_INCORRECTO = "El día debe estar expresado como un número, el formato es incorrecto";
+    public static final String DIA_PARA_OBTENER_EL_CLIMA_ERROR = "Es necesario indicar el número del día para obtener el clima";
 
     @Autowired
     private DayWeatherDAO dayWeatherDAO;

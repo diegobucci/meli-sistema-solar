@@ -8,7 +8,7 @@ import meli.tmr.sistemasolar.exceptions.NoWeatherFoundException;
 import meli.tmr.sistemasolar.models.DayWeather;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@Service
+@Component
 public class DayWeatherDAOImpl implements DayWeatherDAO  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DayWeatherDAOImpl.class);
