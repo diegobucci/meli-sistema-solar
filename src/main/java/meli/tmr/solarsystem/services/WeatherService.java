@@ -51,6 +51,9 @@ public  class WeatherService {
             int i = 1;
         }
         Weather weather = weatherTypeResolver.getWeatherType(planets);
+        if(weather == null){
+            int a = 2;
+        }
         weather.updateReport(report, dayNumber);
         dayWeatherDAO.save(new DayWeather(dayNumber, weather.getWeatherDescription()));
     }

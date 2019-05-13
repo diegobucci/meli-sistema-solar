@@ -1,7 +1,5 @@
 package meli.tmr.solarsystem;
 
-import meli.tmr.solarsystem.controllers.implementations.WeatherControllerImpl;
-import meli.tmr.solarsystem.controllers.interfaces.WeatherController;
 import meli.tmr.solarsystem.daos.implementations.WeatherReportDAOImpl;
 import meli.tmr.solarsystem.daos.interfaces.DayWeatherDAO;
 import meli.tmr.solarsystem.exceptions.SolarSystemException;
@@ -9,11 +7,11 @@ import meli.tmr.solarsystem.exceptions.YearsException;
 import meli.tmr.solarsystem.models.*;
 import meli.tmr.solarsystem.services.CalculatorUtil;
 import meli.tmr.solarsystem.services.WeatherService;
-import meli.tmr.solarsystem.services.WeatherTypeResolver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
@@ -23,17 +21,16 @@ import static org.mockito.Mockito.doNothing;
 
 @SpringBootTest
 public class TestSolarSystem {
-
     @Mock
     private DayWeatherDAO dayWeatherDAO;
     @Mock
     private WeatherReportDAOImpl weatherReportDAO;
-    @Mock
-    private WeatherTypeResolver weatherTypeResolver;
-    @Mock
-    private CalculatorUtil calculatorUtil;
+    @Autowired
     @InjectMocks
     private WeatherService weatherService;
+    @Autowired
+    private CalculatorUtil calculatorUtil;
+
 
     @Test
     void testGetReportMoreThan10YearsException() {
