@@ -2,13 +2,15 @@ package meli.tmr.solarsystem;
 
 import meli.tmr.solarsystem.controllers.implementations.WeatherControllerImpl;
 import meli.tmr.solarsystem.controllers.interfaces.WeatherController;
+import meli.tmr.solarsystem.daos.implementations.DayWeatherDAOImpl;
+import meli.tmr.solarsystem.daos.implementations.WeatherReportDAOImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -17,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {WeatherController.class, WeatherControllerImpl.class})
+@ContextConfiguration(classes = {WeatherControllerImpl.class, DayWeatherDAOImpl.class, WeatherReportDAOImpl.class})
 @WebMvcTest
 public class TestRequest {
 
@@ -29,9 +31,11 @@ public class TestRequest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/clima?dia=-10")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
-        Assertions.assertEquals(WeatherControllerImpl.NUMERO_POSITIVO_ERROR, result.getResponse().getContentAsString());
+        MockHttpServletResponse response = result.getResponse();
+        response.getStatus()
+        Assertions.assertEquals(WeatherControllerImpl.NUMERO_POSITIVO_ERROR, result.getResponse());
     }
 /*
     @Test
