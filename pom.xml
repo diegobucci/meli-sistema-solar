@@ -46,7 +46,6 @@
 			</exclusions>
 		</dependency>
 
-
 		<!-- junit 5 -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -54,18 +53,20 @@
 			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.google.firebase</groupId>
-			<artifactId>firebase-admin</artifactId>
-			<version>5.10.0</version>
-		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- bbdd -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>5.10.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
