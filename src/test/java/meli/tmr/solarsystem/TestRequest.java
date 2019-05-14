@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {WeatherControllerImpl.class, DayWeatherDAOImpl.class, WeatherReportDAOImpl.class})
@@ -29,28 +28,33 @@ public class TestRequest {
     @Test
     void testErrorRequestNegativeNumber() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/clima?dia=-10")
-                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
                 .andReturn();
-        MockHttpServletResponse response = result.getResponse();
-        response.getStatus()
-        Assertions.assertEquals(WeatherControllerImpl.NUMERO_POSITIVO_ERROR, result.getResponse());
+        Assertions.assertEquals(WeatherControllerImpl.NUMERO_POSITIVO_ERROR, result.getResponse().getContentAsString());
     }
-/*
+
     @Test
     void testErrorRequestWrongFormat() throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                new URL("http://localhost:" + port + "/clima?dia=asd").toString(), String.class);
-        Assertions.assertEquals(WeatherControllerImpl.EL_FORMATO_ES_INCORRECTO, response.getBody());
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/clima?dia=string")
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        Assertions.assertEquals(WeatherControllerImpl.EL_FORMATO_ES_INCORRECTO, result.getResponse().getContentAsString());
+    }
+
+    @Test
+    void testErrorRequestWithoutDay() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/clima?dia=")
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        Assertions.assertEquals(WeatherControllerImpl.DIA_PARA_OBTENER_EL_CLIMA_ERROR, result.getResponse().getContentAsString());
     }
 
     @Test
     void testErrorRequestNoParams() throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                new URL("http://localhost:" + port + "/clima").toString(), String.class);
-        Assertions.assertEquals(WeatherControllerImpl.DIA_PARA_OBTENER_EL_CLIMA_ERROR, response.getBody());
-    }*/
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/clima")
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        Assertions.assertEquals(WeatherControllerImpl.DIA_PARA_OBTENER_EL_CLIMA_ERROR, result.getResponse().getContentAsString());
+    }
+
 }
