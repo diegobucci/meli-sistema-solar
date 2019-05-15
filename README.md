@@ -1,7 +1,9 @@
 # Solar System Application
 API REST Application made with Java 8 & Spring Boot
 
+### Entorno productivo
 Tanto la API REST como el modelo de datos se encuentran hosteados en Google Cloud.
+Al deployar la aplicación en la nube se ejecutó el JOB solicitado. El mismo consiste en correr un proceso para realizar la predicción del clima del sistema solar compuesto por los planetas indicados en el enunciado, de manera que sea posible consultar los resultados obtenidos a través de pedidos http. Los mismos son indicados a continuación:
 
 - Para obtener el clima de un dia especifico:
 	- `https://meli-solar-system-240220.appspot.com/clima?dia=<nro_dia>`
@@ -13,9 +15,9 @@ Tanto la API REST como el modelo de datos se encuentran hosteados en Google Clou
 
 #### Correr el project de manera local:
 Levantar la aplicacion con el comando:
-`mvn spring-boot:run`
+`mvn appengine:deploy`
 
-Se realizara la prediccion del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podra ser consultada a traves de distintos request expuestos por la API.
+Se realizará la predicción del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podrá ser consultada a través de distintos request expuestos por la API.
 
 #### End Points
 Una vez deployado localmente, es posible realizar las siguientes consultas:
