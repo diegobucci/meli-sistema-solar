@@ -6,13 +6,13 @@ public class WeatherReport {
     private Integer diasDeLluvia;
     private Integer diaDeMayorLluvia;
     private Integer diasOptimos;
-    private double maximoPerimetroDiaDeLluvia;
+//    private double maximoPerimetroDiaDeLluvia;+
 
     public WeatherReport(){
         this.setDiasDeSequia(0);
         this.setDiasDeLluvia(0);
         this.setDiasOptimos(0);
-        this.setMaximoPerimetroDiaDeLluvia(0);
+//        this.setMaximoPerimetroDiaDeLluvia(0);
     }
 
     public Integer getDiasDeSequia() {
@@ -46,12 +46,12 @@ public class WeatherReport {
     public void setDiasOptimos(Integer diasOptimos) {
         this.diasOptimos = diasOptimos;
     }
-
-    public double getMaximoPerimetroDiaDeLluvia() {
-        return maximoPerimetroDiaDeLluvia;
-    }
-
-    public void setMaximoPerimetroDiaDeLluvia(double maximoPerimetroDiaDeLluvia) {
-        this.maximoPerimetroDiaDeLluvia = maximoPerimetroDiaDeLluvia;
-    }
+//
+//    public double getMaximoPerimetroDiaDeLluvia() {
+//        return maximoPerimetroDiaDeLluvia;
+//    }
+//
+//    public void setMaximoPerimetroDiaDeLluvia(double maximoPerimetroDiaDeLluvia) {
+//        this.maximoPerimetroDiaDeLluvia = maximoPerimetroDiaDeLluvia;
+//    }
 }

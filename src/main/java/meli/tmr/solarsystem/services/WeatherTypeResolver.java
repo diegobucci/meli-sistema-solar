@@ -40,4 +40,8 @@ public class WeatherTypeResolver {
         }
         return standarWeather;
     }
+
+    void reset(){
+        this.rainWeather.reset();
+    }
 }

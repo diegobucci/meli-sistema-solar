@@ -43,6 +43,7 @@ public  class WeatherService {
             solarSystem.advanceOneDay();
             updateReportAndSaveDay(report, solarSystem.getPlanets(), dayNumber);
         }
+        weatherTypeResolver.reset();
         return report;
     }
 

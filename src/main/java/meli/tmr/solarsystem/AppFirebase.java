@@ -19,11 +19,11 @@ public class AppFirebase {
 
     public void initBD() throws IOException {
         LOGGER.info("Inicializando conexión con la base de datos");
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("meli-solar-system-credentials.json");
+        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("sistema-solar-240720-64fa05b0d108.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
-                .setProjectId("meli-solar-system-240220")
+                .setProjectId("sistema-solar-240720")
                 .build();
         if(FirebaseApp.getApps().size() == 0) { // This fix error "Firebase App named '[DEFAULT]' already exists" at <mvn install>
             FirebaseApp.initializeApp(options);

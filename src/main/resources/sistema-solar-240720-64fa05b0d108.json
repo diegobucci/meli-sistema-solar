@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sistema-solar-240720",
+  "private_key_id": "64fa05b0d1088d48049281169081e8d6216b965c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC00xOoU5X/DedG\nXaQxySKQwd50hbQK/KAJ8f4jk/67Juugs0Jgopg5/r7kZi0c/5OAM1XhFBXsTzcU\niozUZBLbVOPuEQYVKekz41gYxTK+Mnk5vrL2bdb7Ev5G4jNu3/jpBOAugHs2+gnR\n0gnFsBTd6K+YUHo0mjlxu8Q4HpAcmOpWXWHIw9b6BjBR/7/nSyMX0SQGeDHaClro\n1+b5GpV2oO94f2l9mf4W4TLoILuIJBISIvJfuIttNWLgr9LsydTP4Hd9D4VvuCNp\ns2I+I/Ufc4rEVRgU7rQwmGXbwI83iP3F8z847/++z//lor7tZ0ITp6C6N88uTTp5\n6KKJVAglAgMBAAECggEAAJI2Gq8A50hU9azwCtQ2zrw+BqIxemNn4gAorFYYVOD/\nl4dZa1K4Jl6+nZwRAmlwPtRqrgZRN2jcpKz3WuhiAt1Wxva4zTJPsUFDkvh0e5NP\nPLZ0fEDGkA50TScDwJLmh13jk2IGgZrykv4V19EBj93fSBzg9e+SxOAx83dtPxnf\nL6Nr+XLTsrcyiv8R7wDkbJdPaIdtyXsxw8pLJd4/H6sh3yP/uG7NXpXm37CYVj4l\ne6svj2IFTLkjRefdYEDdg2HBAhS7SRginPiuNub3l7bDK548ghYD3fihuHmg8+qQ\nTo9T2AhSLs+gBKUOBIQLxf4p/rH8cEtGCOSaSerk9QKBgQDZ/QWDiJR2cLGO9ci7\nIM+4fX+43UcgHkC8bAYSxLU4KgOfoG6LmZvCG2UISWVHqvtWla8Xcs8+LU8LXxnO\n51ffxkAaJn60NZgcqss+tlFG1BI7e4NnlkfXCPwuBAddgSlNTW/yfeVh5ABYLC/y\ncdeR5+niqHjjou8f+Zydji2xOwKBgQDUWxCeGheyubEQbMVT1Ym6ZDsok8AjKKQ2\nn2AgrlfFSdMPMoGUY/cO+yZD2/z3KABChEhJhshNkPte32foqt3XDQGVMclAvyuE\nwkDz0JCF4JVlEyMoDrNKAKe6zWXOGeiwUWPh7Yr3+LrXn2MjlXQfbV1LOpS0yFKR\nBRLn5KmWHwKBgQCzVNdjZUoVwhIgtQzE/XJFqWEYmVm5D4pcOFYqvI8FPHMssBQh\nXmZoIpdUYOUkN4J7sbqQhM//q9CaX0thDqsZGgSEPuT/phOUieGYnu5wYWj6bFsn\nLde+DNNBm+jfQLHUuX7+NBowFR0/bGKphoQ8sViVMdn6E4G7gWMZruziHwKBgEGB\nNccPVXAUR8JBSz1pCWstr/H8YbB2wPD4iLaMERcShsCRW9diXruITW1xVr8G382k\n8Id9xBvpNSE22N60lmnX4T0cdnA6iDoTkeWj2HDzriHXnWil4Dhbq2G8KkNBSr3Y\n3W67z7peR4Rr7jDz0TZAjh6+m1CI2q9RWVue9ZERAoGAK2Rig7RUDpA0zaSg54pa\nUyLuwSzdxe0ZDPsd/JAJwmbYkDrW7RmDE+q7yedKaUmvnlvYJnRkYFjK1m9By8CB\nEZkNiZl/vDh+JeGwFuEq3IMOc3QVIkrDphhqQKvU1jSLsCdSYyiOZ3IYhOlV0rmB\nrhYq2r0m26ZBbGQw68lXQEc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sistema-solar-240720@appspot.gserviceaccount.com",
+  "client_id": "104091283906572933372",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sistema-solar-240720%40appspot.gserviceaccount.com"
+}
