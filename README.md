@@ -1,8 +1,9 @@
 # Solar System Application
 API REST Application made with Java 8 & Spring Boot
 
-#### Entorno productivo
+### Entorno productivo
 Tanto la API REST como el modelo de datos se encuentran hosteados en Google Cloud.
+Al deployar la aplicación en la nube se ejecutó el JOB solicitado. El mismo consiste en correr un proceso para realizar la predicción del clima del sistema solar compuesto por los planetas indicados en el enunciado, de manera que sea posible consultar los resultados obtenidos a través de pedidos http. Los mismos son indicados a continuación:
 
 - Para obtener el clima de un dia especifico:
 	- `https://meli-solar-system-240220.appspot.com/clima?dia=<nro_dia>`
