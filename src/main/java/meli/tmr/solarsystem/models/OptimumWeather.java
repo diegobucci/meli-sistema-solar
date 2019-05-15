@@ -16,6 +16,6 @@ public class OptimumWeather extends Weather {
     @Override
     public void updateReport(WeatherReport report, Integer dayNumber) {
         LOGGER.info("Se espera un clima " + OPTIMO + " para el día " + dayNumber);
-        report.setNumberOfOptimalDays(report.getNumberOfOptimalDays() + 1);
+        report.setDiasOptimos(report.getDiasOptimos() + 1);
     }
 }

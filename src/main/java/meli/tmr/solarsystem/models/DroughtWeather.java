@@ -16,6 +16,6 @@ public class DroughtWeather extends Weather {
     @Override
     public void updateReport(WeatherReport report, Integer dayNumber) {
         LOGGER.info("Se espera un clima de " + SEQUIA + " para el dia " + dayNumber);
-        report.setNumberOfDroughtDays(report.getNumberOfDroughtDays() + 1);
+        report.setDiasDeSequia(report.getDiasDeSequia() + 1);
     }
 }

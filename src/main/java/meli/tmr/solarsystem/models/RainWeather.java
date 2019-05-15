@@ -22,11 +22,11 @@ public class RainWeather extends Weather {
     @Override
     public void updateReport(WeatherReport report, Integer dayNumber){
         LOGGER.info("Se espera " + LLUVIA + " para el día " + dayNumber);
-        report.setNumberOfRainyDays(report.getNumberOfRainyDays() + 1);
+        report.setDiasDeLluvia(report.getDiasDeLluvia() + 1);
         double perimeter = getPerimeter(planets);
-        if(perimeter > report.getMaxPerimeterRain()) {
-            report.setDayOfGreatestRain(dayNumber);
-            report.setMaxPerimeterRain(perimeter);
+        if(perimeter > report.getMaximoPerimetroDiaDeLluvia()) {
+            report.setDiaDeMayorLluvia(dayNumber);
+            report.setMaximoPerimetroDiaDeLluvia(perimeter);
         }
     }
 

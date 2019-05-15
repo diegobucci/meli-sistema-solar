@@ -32,11 +32,11 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
             Query query = reports.limit(20);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
             querySnapshot.get().getDocuments().forEach(document -> { // Debería haber un único valor
-                weatherReport.setNumberOfDroughtDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-de-sequia")).toString()));
-                weatherReport.setNumberOfOptimalDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-optimos")).toString()));
-                weatherReport.setNumberOfRainyDays(Integer.parseInt(Objects.requireNonNull(document.get("dias-lluviosos")).toString()));
-                weatherReport.setDayOfGreatestRain(Integer.parseInt(Objects.requireNonNull(document.get("dia-lluvia-maxima")).toString()));
-                weatherReport.setMaxPerimeterRain(Double.parseDouble(Objects.requireNonNull(document.get("maximo-perimetro-lluvia")).toString()));
+                weatherReport.setDiasDeSequia(Integer.parseInt(Objects.requireNonNull(document.get("dias-de-sequia")).toString()));
+                weatherReport.setDiasOptimos(Integer.parseInt(Objects.requireNonNull(document.get("dias-optimos")).toString()));
+                weatherReport.setDiasDeLluvia(Integer.parseInt(Objects.requireNonNull(document.get("dias-lluviosos")).toString()));
+                weatherReport.setDiaDeMayorLluvia(Integer.parseInt(Objects.requireNonNull(document.get("dia-lluvia-maxima")).toString()));
+                weatherReport.setMaximoPerimetroDiaDeLluvia(Double.parseDouble(Objects.requireNonNull(document.get("maximo-perimetro-lluvia")).toString()));
             });
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.error(e.getMessage());
@@ -49,11 +49,11 @@ public class WeatherReportDAOImpl implements WeatherReportDAO {
     public void save(WeatherReport weatherReport) {
         LOGGER.info("Almacenar reporte en la base de datos: " + weatherReport);
         Map<String, Object> data = new HashMap<>();
-        data.put("dias-de-sequia", weatherReport.getNumberOfDroughtDays());
-        data.put("dias-optimos", weatherReport.getNumberOfOptimalDays());
-        data.put("dias-lluviosos", weatherReport.getNumberOfRainyDays());
-        data.put("dia-lluvia-maxima", weatherReport.getDayOfGreatestRain());
-        data.put("maximo-perimetro-lluvia", weatherReport.getMaxPerimeterRain());
+        data.put("dias-de-sequia", weatherReport.getDiasDeSequia());
+        data.put("dias-optimos", weatherReport.getDiasOptimos());
+        data.put("dias-lluviosos", weatherReport.getDiasDeLluvia());
+        data.put("dia-lluvia-maxima", weatherReport.getDiaDeMayorLluvia());
+        data.put("maximo-perimetro-lluvia", weatherReport.getMaximoPerimetroDiaDeLluvia());
         AppFirebase.getDB().collection(COLLECTION_NAME).document(DOCUMENT_NAME).set(data);
     }
 }

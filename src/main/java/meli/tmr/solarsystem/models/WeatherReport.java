@@ -1,56 +1,57 @@
 package meli.tmr.solarsystem.models;
 
 public class WeatherReport {
-    private Integer numberOfDroughtDays;
-    private Integer numberOfRainyDays;
-    private Integer dayOfGreatestRain;
-    private Integer numberOfOptimalDays;
-    private double maxPerimeterRain;
+    // están en español porque es la salida ante el request /reporteProximosDiezAnios
+    private Integer diasDeSequia;
+    private Integer diasDeLluvia;
+    private Integer diaDeMayorLluvia;
+    private Integer diasOptimos;
+    private double maximoPerimetroDiaDeLluvia;
 
     public WeatherReport(){
-        this.setNumberOfDroughtDays(0);
-        this.setNumberOfRainyDays(0);
-        this.setNumberOfOptimalDays(0);
-        this.setMaxPerimeterRain(0);
+        this.setDiasDeSequia(0);
+        this.setDiasDeLluvia(0);
+        this.setDiasOptimos(0);
+        this.setMaximoPerimetroDiaDeLluvia(0);
     }
 
-    public Integer getNumberOfDroughtDays() {
-        return numberOfDroughtDays;
+    public Integer getDiasDeSequia() {
+        return diasDeSequia;
     }
 
-    public void setNumberOfDroughtDays(Integer numberOfDroughtDays) {
-        this.numberOfDroughtDays = numberOfDroughtDays;
+    public void setDiasDeSequia(Integer diasDeSequia) {
+        this.diasDeSequia = diasDeSequia;
     }
 
-    public Integer getNumberOfRainyDays() {
-        return numberOfRainyDays;
+    public Integer getDiasDeLluvia() {
+        return diasDeLluvia;
     }
 
-    public void setNumberOfRainyDays(Integer numberOfRainyDays) {
-        this.numberOfRainyDays = numberOfRainyDays;
+    public void setDiasDeLluvia(Integer diasDeLluvia) {
+        this.diasDeLluvia = diasDeLluvia;
     }
 
-    public Integer getDayOfGreatestRain() {
-        return dayOfGreatestRain;
+    public Integer getDiaDeMayorLluvia() {
+        return diaDeMayorLluvia;
     }
 
-    public void setDayOfGreatestRain(Integer dayOfGreatestRain) {
-        this.dayOfGreatestRain = dayOfGreatestRain;
+    public void setDiaDeMayorLluvia(Integer diaDeMayorLluvia) {
+        this.diaDeMayorLluvia = diaDeMayorLluvia;
     }
 
-    public Integer getNumberOfOptimalDays() {
-        return numberOfOptimalDays;
+    public Integer getDiasOptimos() {
+        return diasOptimos;
     }
 
-    public void setNumberOfOptimalDays(Integer numberOfOptimalDays) {
-        this.numberOfOptimalDays = numberOfOptimalDays;
+    public void setDiasOptimos(Integer diasOptimos) {
+        this.diasOptimos = diasOptimos;
     }
 
-    public double getMaxPerimeterRain() {
-        return maxPerimeterRain;
+    public double getMaximoPerimetroDiaDeLluvia() {
+        return maximoPerimetroDiaDeLluvia;
     }
 
-    public void setMaxPerimeterRain(double maxPerimeterRain) {
-        this.maxPerimeterRain = maxPerimeterRain;
+    public void setMaximoPerimetroDiaDeLluvia(double maximoPerimetroDiaDeLluvia) {
+        this.maximoPerimetroDiaDeLluvia = maximoPerimetroDiaDeLluvia;
     }
 }

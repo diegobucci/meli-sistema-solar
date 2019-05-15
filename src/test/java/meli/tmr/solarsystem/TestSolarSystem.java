@@ -70,10 +70,10 @@ public class TestSolarSystem {
         doNothing().when(weatherReportDAO).save(any(WeatherReport.class));
         SolarSystem solarSystem = new SolarSystem(AppInitializator.buildPlanetList());
         WeatherReport reporte = weatherService.getWeatherReport(solarSystem,10);
-        Assertions.assertEquals(40 ,reporte.getNumberOfDroughtDays(),0.01);
-        Assertions.assertEquals(1188 ,reporte.getNumberOfRainyDays(),0.01);
-        Assertions.assertEquals(72 ,reporte.getDayOfGreatestRain(),0.01);
-        Assertions.assertEquals(204 ,reporte.getNumberOfOptimalDays(),0.01);
+        Assertions.assertEquals(40 ,reporte.getDiasDeSequia(),0.01);
+        Assertions.assertEquals(1188 ,reporte.getDiasDeLluvia(),0.01);
+        Assertions.assertEquals(72 ,reporte.getDiaDeMayorLluvia(),0.01);
+        Assertions.assertEquals(204 ,reporte.getDiasOptimos(),0.01);
     }
 
     @Test
