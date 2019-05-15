@@ -1,6 +1,16 @@
 # Solar System Application
 API REST Application made with Java 8 & Spring Boot
 
+Tanto la API REST como el modelo de datos se encuentran hosteados en Google Cloud.
+
+- Para obtener el clima de un dia especifico:
+	- `https://meli-solar-system-240220.appspot.com/clima?dia=<nro_dia>`
+- Para obtener el reporte de los próximos diez años:
+	- `https://meli-solar-system-240220.appspot.com/reporteProximosDiezAnios`
+
+
+
+
 #### Correr el project de manera local:
 Levantar la aplicacion con el comando:
 `mvn spring-boot:run`
@@ -8,7 +18,7 @@ Levantar la aplicacion con el comando:
 Se realizara la prediccion del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podra ser consultada a traves de distintos request expuestos por la API.
 
 #### End Points
-Una vez deployado, es posible realizar las siguientes consultas:
+Una vez deployado localmente, es posible realizar las siguientes consultas:
 - Obtener el clima para un dia especifico
     - `localhost:8080/clima?dia=<diaConsultado>`
 - Obtener la cantidad de dias de sequia, de dias optimos, de dias de lluvia y el numero del dia que mas llovio.
