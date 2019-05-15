@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+@RestController
 public class WeatherControllerImpl implements WeatherController {
 
     public static final String NUMERO_POSITIVO_ERROR = "El día debe ser un número positivo";
