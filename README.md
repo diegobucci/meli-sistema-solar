@@ -15,9 +15,9 @@ Al deployar la aplicación en la nube se ejecutó el JOB solicitado. El mismo co
 
 #### Correr el project de manera local:
 Levantar la aplicacion con el comando:
-`mvn spring-boot:run`
+`mvn appengine:deploy`
 
-Se realizara la prediccion del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podra ser consultada a traves de distintos request expuestos por la API.
+Se realizará la predicción del clima para los proximos diez anios, almacenando los resultados en una base de datos que luego podrá ser consultada a través de distintos request expuestos por la API.
 
 #### End Points
 Una vez deployado localmente, es posible realizar las siguientes consultas:
